@@ -1,0 +1,144 @@
+{
+  "settings": {
+    "minAttendanceThreshold": 75,
+    "warningMargin": 5,
+    "institutionRule": "weighted_credits",
+    "gradeScale": [
+      { "grade": "O", "points": 10, "description": "Outstanding (90-100%)" },
+      { "grade": "A+", "points": 9, "description": "Excellent (80-89%)" },
+      { "grade": "A", "points": 8, "description": "Very Good (70-79%)" },
+      { "grade": "B+", "points": 7, "description": "Good (60-69%)" },
+      { "grade": "B", "points": 6, "description": "Above Average (55-59%)" },
+      { "grade": "C", "points": 5, "description": "Average (50-54%)" },
+      { "grade": "P", "points": 4, "description": "Pass (40-49%)" },
+      { "grade": "F", "points": 0, "description": "Fail (<40%)" }
+    ]
+  },
+  "attendance": [
+    {
+      "id": "att_1",
+      "code": "CS301",
+      "name": "Mathematics III",
+      "conducted": 40,
+      "attended": 34,
+      "faculty": "Dr. Sarah Jenkins",
+      "lastUpdated": "2026-10-25"
+    },
+    {
+      "id": "att_2",
+      "code": "CS302",
+      "name": "Physics & Engineering Electromagnetics",
+      "conducted": 36,
+      "attended": 25,
+      "faculty": "Prof. Alan Turing",
+      "lastUpdated": "2026-10-26"
+    },
+    {
+      "id": "att_3",
+      "code": "CS303",
+      "name": "Programming in C/C++",
+      "conducted": 32,
+      "attended": 28,
+      "faculty": "Dr. Grace Hopper",
+      "lastUpdated": "2026-10-27"
+    },
+    {
+      "id": "att_4",
+      "code": "CS304",
+      "name": "Data Structures & Algorithms",
+      "conducted": 28,
+      "attended": 22,
+      "faculty": "Prof. Donald Knuth",
+      "lastUpdated": "2026-10-26"
+    },
+    {
+      "id": "att_5",
+      "code": "CS305",
+      "name": "Digital Logic Design",
+      "conducted": 30,
+      "attended": 21,
+      "faculty": "Dr. Claude Shannon",
+      "lastUpdated": "2026-10-24"
+    }
+  ],
+  "syllabus": [
+    {
+      "id": "syl_1",
+      "subjectCode": "CS301",
+      "subjectName": "Mathematics III",
+      "totalUnits": 5,
+      "units": [
+        { "unitNo": 1, "title": "Linear Algebra & Vector Spaces", "topicsTotal": 6, "topicsCompleted": 6, "status": "Completed" },
+        { "unitNo": 2, "title": "Calculus & Multivariable Functions", "topicsTotal": 8, "topicsCompleted": 8, "status": "Completed" },
+        { "unitNo": 3, "title": "Differential Equations & Laplace Transforms", "topicsTotal": 7, "topicsCompleted": 4, "status": "In Progress" },
+        { "unitNo": 4, "title": "Complex Analysis & Mapping", "topicsTotal": 6, "topicsCompleted": 0, "status": "Not Started" },
+        { "unitNo": 5, "title": "Numerical Methods & Iterations", "topicsTotal": 5, "topicsCompleted": 0, "status": "Not Started" }
+      ]
+    },
+    {
+      "id": "syl_2",
+      "subjectCode": "CS302",
+      "subjectName": "Physics & Engineering Electromagnetics",
+      "totalUnits": 4,
+      "units": [
+        { "unitNo": 1, "title": "Electromagnetic Fields & Maxwell's Equations", "topicsTotal": 6, "topicsCompleted": 6, "status": "Completed" },
+        { "unitNo": 2, "title": "Optics & Wave Propagation", "topicsTotal": 6, "topicsCompleted": 3, "status": "In Progress" },
+        { "unitNo": 3, "title": "Quantum Mechanics Fundamentals", "topicsTotal": 5, "topicsCompleted": 0, "status": "Not Started" },
+        { "unitNo": 4, "title": "Thermodynamics & Statistical Physics", "topicsTotal": 5, "topicsCompleted": 0, "status": "Not Started" }
+      ]
+    },
+    {
+      "id": "syl_3",
+      "subjectCode": "CS303",
+      "subjectName": "Programming in C/C++",
+      "totalUnits": 5,
+      "units": [
+        { "unitNo": 1, "title": "Language Basics, Flow & Functions", "topicsTotal": 5, "topicsCompleted": 5, "status": "Completed" },
+        { "unitNo": 2, "title": "Pointers, References & Memory Management", "topicsTotal": 6, "topicsCompleted": 6, "status": "Completed" },
+        { "unitNo": 3, "title": "Object-Oriented Design & Classes", "topicsTotal": 7, "topicsCompleted": 7, "status": "Completed" },
+        { "unitNo": 4, "title": "File Handling & Stream I/O", "topicsTotal": 4, "topicsCompleted": 2, "status": "In Progress" },
+        { "unitNo": 5, "title": "Templates, Exception Handling & STL", "topicsTotal": 6, "topicsCompleted": 1, "status": "In Progress" }
+      ]
+    },
+    {
+      "id": "syl_4",
+      "subjectCode": "CS304",
+      "subjectName": "Data Structures & Algorithms",
+      "totalUnits": 5,
+      "units": [
+        { "unitNo": 1, "title": "Arrays, Stacks & Complexity Analysis", "topicsTotal": 5, "topicsCompleted": 5, "status": "Completed" },
+        { "unitNo": 2, "title": "Queues, Deques & Linked Lists", "topicsTotal": 6, "topicsCompleted": 6, "status": "Completed" },
+        { "unitNo": 3, "title": "Non-linear Structures: Trees & BSTs", "topicsTotal": 7, "topicsCompleted": 2, "status": "In Progress" },
+        { "unitNo": 4, "title": "Graphs & Minimum Spanning Trees", "topicsTotal": 6, "topicsCompleted": 0, "status": "Not Started" },
+        { "unitNo": 5, "title": "Sorting, Searching & Hash Tables", "topicsTotal": 6, "topicsCompleted": 0, "status": "Not Started" }
+      ]
+    },
+    {
+      "id": "syl_5",
+      "subjectCode": "CS305",
+      "subjectName": "Digital Logic Design",
+      "totalUnits": 4,
+      "units": [
+        { "unitNo": 1, "title": "Boolean Algebra & Logic Gates", "topicsTotal": 5, "topicsCompleted": 5, "status": "Completed" },
+        { "unitNo": 2, "title": "Combinational Logic & Decoders/Multiplexers", "topicsTotal": 6, "topicsCompleted": 6, "status": "Completed" },
+        { "unitNo": 3, "title": "Sequential Logic: Flip-Flops & Counters", "topicsTotal": 6, "topicsCompleted": 1, "status": "In Progress" },
+        { "unitNo": 4, "title": "Memory Units & Programmable Logic (PLDs)", "topicsTotal": 5, "topicsCompleted": 0, "status": "Not Started" }
+      ]
+    }
+  ],
+  "gpaCourses": [
+    { "id": "gpa_1", "code": "CS301", "name": "Mathematics III", "credits": 4, "grade": "A", "points": 8 },
+    { "id": "gpa_2", "code": "CS302", "name": "Physics & Engineering Electromagnetics", "credits": 4, "grade": "B+", "points": 7 },
+    { "id": "gpa_3", "code": "CS303", "name": "Programming in C/C++", "credits": 3, "grade": "O", "points": 10 },
+    { "id": "gpa_4", "code": "CS304", "name": "Data Structures & Algorithms", "credits": 4, "grade": "A+", "points": 9 },
+    { "id": "gpa_5", "code": "CS305", "name": "Digital Logic Design", "credits": 3, "grade": "B", "points": 6 },
+    { "id": "gpa_6", "code": "CS306", "name": "Data Structures Laboratory", "credits": 2, "grade": "O", "points": 10 }
+  ],
+  "cgpaSemesters": [
+    { "id": "sem_1", "semester": "Semester 1", "credits": 20, "sgpa": 8.40 },
+    { "id": "sem_2", "semester": "Semester 2", "credits": 22, "sgpa": 8.65 },
+    { "id": "sem_3", "semester": "Semester 3", "credits": 21, "sgpa": 8.10 },
+    { "id": "sem_4", "semester": "Semester 4 (Current)", "credits": 20, "sgpa": 8.25 }
+  ]
+}
+

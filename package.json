@@ -1,0 +1,25 @@
+{
+  "name": "campus360-attendance-tracker",
+  "version": "1.0.0",
+  "description": "Campus360 Attendance, Syllabus & GPA/CGPA Tracking Platform with REST API and Interactive Dashboard",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "attendance",
+    "gpa",
+    "cgpa",
+    "syllabus-tracker",
+    "student-dashboard",
+    "campus360"
+  ],
+  "author": "Campus360 Development Team",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2",
+    "cors": "^2.8.5"
+  }
+}
+
