@@ -1,10 +1,37 @@
 # Campus360 — Educational Institution Management Information System (IMS)
 
+[![Local Preview](https://img.shields.io/badge/Local_App-http%3A%2F%2Flocalhost%3A3000-brightgreen?style=for-the-badge&logo=googlechrome)](http://localhost:3000)
+[![Live Demo](https://img.shields.io/badge/GitHub_Pages-Live_Demo-blue?style=for-the-badge&logo=github)](https://haydenvictor420.github.io/Campus360/)
+[![Branch](https://img.shields.io/badge/Branch-muhil-orange?style=for-the-badge&logo=git)](https://github.com/HaydenVictor420/Campus360/tree/muhil)
+[![Source Code PDF](https://img.shields.io/badge/Documentation-Source_Code_PDF-red?style=for-the-badge&logo=adobeacrobatreader)](./Campus360_Source_Code.pdf)
+
 An evision project implementing an enterprise-grade, interactive Proof of Concept based on architectural designs, student module specifications, and entity-relationship models published across three IEEE research papers:
 
 1. **IEEE 10058674**: *"Institution Management System: Student Module"*
 2. **IEEE 10516390**: *"Educational Institution Management Information System"*
 3. **IEEE 7384005**: *"College Student Management System Design Using Computer Aided System"*
+
+---
+
+## 🌐 Application Access & Live Links
+
+### 🖥️ 1. Local Server (Default)
+When the local server is running on your computer, click the link below to access the full system:
+👉 **[http://localhost:3000](http://localhost:3000)**
+
+> **Note**: If clicking `http://localhost:3000` says *"Site can't be reached"*, start the local server first:
+> - **Option A (One-Click)**: Double-click **`start.bat`** in this project folder.
+> - **Option B (Terminal)**: Run `npm start` or `node server.js` in your terminal.
+>
+> Once started, `http://localhost:3000` will immediately open and respond in your browser!
+
+### 🚀 2. Live Web Demo (GitHub Pages)
+You can also launch and explore Campus360 directly in any browser without installing or running a local server:
+👉 **[https://haydenvictor420.github.io/Campus360/](https://haydenvictor420.github.io/Campus360/)**
+
+### 📄 3. Complete Source Code PDF
+Download or view the complete compiled codebase with syntax highlighting and line numbers across all 9 modules (~3,700 lines):
+👉 **[Download Campus360_Source_Code.pdf](./Campus360_Source_Code.pdf)**
 
 ---
 
@@ -89,13 +116,16 @@ The data model follows the ER diagram specified in **IEEE 7384005**:
 
 ---
 
-## 🚀 Running the PoC Locally
+## 🚀 Running the Project Locally
 
-### Option A: Using the Built-in Zero-Dependency Node.js Server
 ```bash
-node server.js
-```
-Then navigate to: **`http://localhost:3000`**
+# Clone the repository
+git clone -b muhil https://github.com/HaydenVictor420/Campus360.git
+cd Campus360
 
-### Option B: Direct Browser Launch
-Open `index.html` directly in any modern browser (Chrome, Edge, Firefox, Safari).
+# Start the server
+npm start
+# (or double-click start.bat)
+```
+
+Then visit **`http://localhost:3000`** in any browser.

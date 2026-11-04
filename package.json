@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",
-    "app": "node app.js"
+    "app": "node app.js",
+    "build:pdf": "node build-code-pdf.js"
   },
   "keywords": [
     "ieee",
