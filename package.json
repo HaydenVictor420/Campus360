@@ -1,0 +1,1 @@
+{"name":"campus360","version":"1.0.0","type":"module","private":true,"scripts":{"start":"node --env-file-if-exists=.env server.js","test":"node --test test/core.test.js","test:api":"node test/api-check.js"},"engines":{"node":">=22"},"dependencies":{"mongodb":"^6.16.0"}}
