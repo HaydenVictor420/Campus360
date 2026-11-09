@@ -62,7 +62,7 @@ An enterprise-grade, secure, and accessible authentication and user management m
 
 ## 📁 Directory Structure
 
-```
+```text
 Login Module/
 ├── .github/workflows/
 │   ├── ci.yml                 # GitHub Actions automated test & build pipeline
