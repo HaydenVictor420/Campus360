@@ -13,6 +13,7 @@ An enterprise-grade, secure, and accessible authentication and user management m
 ## 🌟 Key Architecture & Capabilities
 
 ### 1. Data Automation & Storage
+
 - **MySQL 8.0**: Connection pooling with `mysql2/promise`, parameterized queries (SQLi protection), dynamic auto-migrations (`database/schema.sql` and `database/migrator.js`), and high-availability embedded memory fallback for zero downtime.
 - **Caching Layer**: High-speed caching via **Redis** (`ioredis`) for user sessions, blacklist checks, and profile lookups, backed by an automatic in-memory TTL fallback cache when Redis is offline.
 - **Automated Cron Jobs / Schedulers**: Integrated background tasks via `node-cron`:
@@ -21,6 +22,7 @@ An enterprise-grade, secure, and accessible authentication and user management m
   - **Daily (02:00 AM)**: Pruning of audit logs older than 90 days.
 
 ### 2. DevOps & Infrastructure
+
 - **Containerization**:
   - `Dockerfile`: Multi-stage, secure Node 20 Alpine container running as non-root user `node` with `dumb-init` and container health checks.
   - `docker-compose.yml`: Complete stack orchestration bringing up App (`:3000`), MySQL 8.0 (`:3306`), Redis 7.2 (`:6379`), and phpMyAdmin (`:8080`).
@@ -30,11 +32,13 @@ An enterprise-grade, secure, and accessible authentication and user management m
 - **Environment Configuration**: Robust validation schema using Joi (`src/config/index.js`), with documented `.env.example`.
 
 ### 3. Reliability & Maintenance
+
 - **Logging & Monitoring**: Dual logging stack with **Winston** (rotating JSON error, security, and combined logs) and **Morgan** (HTTP request logger) tagged with unique correlation IDs (`X-Request-Id`).
 - **Error Handling & Alerts**: Standardized `AppError` hierarchy (`ValidationError`, `AuthenticationError`, `ForbiddenError`, `NotFoundError`), centralized Express error handler, and automated security alerting for brute-force attempts and token reuse.
 - **Automated Testing**: 19 automated unit and integration tests using **Jest** and **Supertest** covering JWT lifecycles, bcrypt hashing, NIST password validation, login lockout, and external data ingestion.
 
 ### 4. Security & Compliance
+
 - **Authentication**: Dual-token JWT (short-lived Access Token + cryptographically rotated Refresh Token family).
 - **Password Security**: NIST-compliant password validation with 12-round **BCrypt** hashing.
 - **Account Lockout Policy**: Automatically locks accounts for 15 minutes after 5 consecutive failed login attempts to thwart brute-force attacks.
@@ -42,13 +46,16 @@ An enterprise-grade, secure, and accessible authentication and user management m
 - **Hardened HTTP**: Security headers with **Helmet**, whitelisted **CORS**, and strict **Rate Limiting** via `express-rate-limit`.
 
 ### 5. Accessibility & Frontend Correlation
+
 - **Accessible UI**: Semantic HTML5 with ARIA roles (`role="tab"`, `role="alert"`, `aria-live="polite"`), high-contrast styling, keyboard navigation (Tab/Enter), and real-time password strength indicators.
 - **Auto-Refresh Interceptor**: Client-side API client (`public/js/api.js`) automatically intercepts HTTP 401s to transparently rotate tokens and retry requests.
 
 ### 6. External Data Ingestion & Integration API
+
 - Secure API (`POST /api/v1/external/import`) protected by institutional API Key (`x-api-key`) allowing student information systems (SIS), attendance trackers, and registrars to push user records regularly with batch error reporting.
 
 ### 7. External Module Manager & Recovery Tool (`external-manager.js`)
+
 - Dedicated administrative and maintenance utility allowing administrators and developers to inspect, manage, recode, and test the module externally without opening a browser or writing manual database queries.
 
 ---
@@ -107,22 +114,26 @@ Login Module/
 ### 1. Local Development (Node.js)
 
 1. **Install Dependencies**:
+
    ```bash
    npm install
    ```
 
 2. **Run Diagnostic Suite**:
+
    ```bash
    node external-manager.js diagnostics
    ```
 
 3. **Start the Application**:
+
    ```bash
    # Using script:
    start-server.bat
    # Or using npm:
    npm start
    ```
+
    Open your browser at: `http://localhost:3000`
 
 4. **Default Accounts**:
@@ -146,6 +157,7 @@ docker compose up -d --build
 - phpMyAdmin: `http://localhost:8080`
 
 To stop:
+
 ```bash
 docker compose down
 ```
@@ -161,6 +173,7 @@ npm test
 ```
 
 Coverage report:
+
 ```bash
 npm run test:coverage
 ```
@@ -172,7 +185,7 @@ npm run test:coverage
 A dedicated external maintenance file is provided in this folder to inspect, recode, or repair the module if issues arise:
 
 | Command | Description |
-|---|---|
+| --- | --- |
 | `node external-manager.js diagnostics` | Runs an 8-point automated diagnostic test suite |
 | `node external-manager.js health` | Inspects MySQL, Redis, and system status |
 | `node external-manager.js users` | Lists all registered users and lock states |
@@ -192,6 +205,7 @@ To push external student/faculty records regularly from external systems:
 **Endpoint**: `POST /api/v1/external/import`  
 **Header**: `x-api-key: campus360_external_sync_key_93817f7b2c9a41e089d5119`  
 **Payload**:
+
 ```json
 {
   "source": "campus_sis_registrar",
@@ -215,9 +229,11 @@ The repository is configured on active branch **`sanjay`** tracking:
 `https://github.com/HaydenVictor420/Campus360.git`
 
 ### Option 1: Double-Click Batch Script
+
 Double-click `push-to-github.bat` in this folder. It will stage, commit, and push directly to branch `sanjay`.
 
 ### Option 2: Command Line
+
 ```bash
 git checkout sanjay
 git add .
