@@ -1,0 +1,100 @@
+version: '3.8'
+
+services:
+  # 1. Main Node.js Application
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: campus360_auth_app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_USER=campus_user
+      - DB_PASSWORD=campus_secure_password_2026
+      - DB_NAME=campus360_auth
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - JWT_ACCESS_SECRET=campus360_super_secret_access_jwt_key_2026_prod!
+      - JWT_REFRESH_SECRET=campus360_super_secret_refresh_jwt_key_2026_prod!
+      - EXTERNAL_API_KEY=campus360_external_sync_key_93817f7b2c9a41e089d5119
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - campus360_net
+
+  # 2. MySQL Database
+  mysql:
+    image: mysql:8.0
+    container_name: campus360_auth_mysql
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root_master_password_2026
+      MYSQL_DATABASE: campus360_auth
+      MYSQL_USER: campus_user
+      MYSQL_PASSWORD: campus_secure_password_2026
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot_master_password_2026"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - campus360_net
+
+  # 3. Redis Caching Layer
+  redis:
+    image: redis:7.2-alpine
+    container_name: campus360_auth_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - campus360_net
+
+  # 4. Optional Web Database Management GUI
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: campus360_auth_phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_USER: campus_user
+      PMA_PASSWORD: campus_secure_password_2026
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - campus360_net
+
+volumes:
+  mysql_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  campus360_net:
+    driver: bridge

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus360 | User Session Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="dashboard-container" role="main">
+    <header style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border); padding-bottom:1rem; margin-bottom:1.5rem;">
+      <div>
+        <div class="portal-badge">Authenticated Session</div>
+        <h1 style="font-size:1.5rem; margin-top:0.25rem;" id="dash-welcome">Campus360 Dashboard</h1>
+      </div>
+      <button id="btn-logout" class="btn-primary" style="width:auto; padding:0.5rem 1rem; background:#dc2626;">Sign Out</button>
+    </header>
+
+    <div class="profile-card">
+      <div class="stat-item">
+        <div class="stat-label">Full Name</div>
+        <div class="stat-val" id="dash-name">Loading...</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">Institutional Email</div>
+        <div class="stat-val" style="font-size:0.95rem; word-break:break-all;" id="dash-email">Loading...</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">Username</div>
+        <div class="stat-val" id="dash-username">Loading...</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">Access Level</div>
+        <div class="stat-val"><span id="dash-role" class="badge-role student">Loading...</span></div>
+      </div>
+    </div>
+
+    <!-- Token Lifecycle Panel -->
+    <section style="background:rgba(15,23,42,0.6); padding:1.25rem; border-radius:8px; border:1px solid var(--border); margin-bottom:1.5rem;">
+      <h2 style="font-size:1rem; margin-bottom:0.75rem; color:#60a5fa;">Token Security Lifecycle</h2>
+      <p style="font-size:0.825rem; color:var(--text-muted); margin-bottom:0.75rem;">
+        Sessions use Dual-Token JWT with single-use refresh token rotation stored securely in memory / cache.
+      </p>
+      <div style="display:flex; gap:0.5rem; align-items:center;">
+        <button id="btn-refresh-token" class="btn-primary" style="width:auto; padding:0.4rem 0.8rem; font-size:0.8rem;">
+          Rotate Refresh Token
+        </button>
+        <span id="token-status-msg" style="font-size:0.8rem; color:#10b981;"></span>
+      </div>
+    </section>
+
+    <!-- Admin Panel: Appears if role is admin -->
+    <section id="admin-panel" style="display:none; background:rgba(15,23,42,0.6); padding:1.25rem; border-radius:8px; border:1px solid var(--border);">
+      <h2 style="font-size:1.1rem; color:#f87171; margin-bottom:0.5rem;">Administration & Directory Overview</h2>
+      <p style="font-size:0.825rem; color:var(--text-muted); margin-bottom:1rem;">
+        You have administrative privileges. Below is the active user inventory and external sync control.
+      </p>
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Created</th>
+            </tr>
+          </thead>
+          <tbody id="user-table-body">
+            <tr><td colspan="5" style="text-align:center;">Loading directory...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      if (!window.api.accessToken) {
+        window.location.href = 'index.html';
+        return;
+      }
+
+      try {
+        const profileRes = await window.api.getProfile();
+        const user = profileRes.data;
+
+        document.getElementById('dash-welcome').textContent = `Welcome back, ${user.firstName}!`;
+        document.getElementById('dash-name').textContent = `${user.firstName} ${user.lastName}`;
+        document.getElementById('dash-email').textContent = user.email;
+        document.getElementById('dash-username').textContent = user.username;
+
+        const roleElem = document.getElementById('dash-role');
+        roleElem.textContent = user.role.toUpperCase();
+        roleElem.className = `badge-role ${user.role}`;
+
+        // If admin, load user directory
+        if (user.role === 'admin') {
+          const adminPanel = document.getElementById('admin-panel');
+          adminPanel.style.display = 'block';
+
+          const usersRes = await window.api.getUsers();
+          const tbody = document.getElementById('user-table-body');
+          if (usersRes.success && usersRes.data) {
+            tbody.innerHTML = usersRes.data.map(u => `
+              <tr>
+                <td>${u.id}</td>
+                <td><strong>${u.username}</strong></td>
+                <td>${u.email}</td>
+                <td><span class="badge-role ${u.role}" style="font-size:0.7rem;">${u.role}</span></td>
+                <td>${new Date(u.created_at).toLocaleDateString()}</td>
+              </tr>
+            `).join('');
+          }
+        }
+      } catch (err) {
+        console.error('Session load failed:', err);
+        window.api.clearTokens();
+        window.location.href = 'index.html';
+      }
+
+      // Logout handler
+      document.getElementById('btn-logout').addEventListener('click', async () => {
+        await window.api.logout();
+        window.location.href = 'index.html';
+      });
+
+      // Manual Token Refresh
+      document.getElementById('btn-refresh-token').addEventListener('click', async () => {
+        const msg = document.getElementById('token-status-msg');
+        msg.textContent = 'Rotating token...';
+        msg.style.color = '#94a3b8';
+        const ok = await window.api.refreshSession();
+        if (ok) {
+          msg.textContent = 'Token refreshed successfully!';
+          msg.style.color = '#10b981';
+        } else {
+          msg.textContent = 'Token rotation failed. Please sign in again.';
+          msg.style.color = '#f87171';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

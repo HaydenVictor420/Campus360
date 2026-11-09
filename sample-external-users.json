@@ -1,0 +1,23 @@
+[
+  {
+    "email": "alex.turner@campus360.internal",
+    "username": "alex_t",
+    "firstName": "Alex",
+    "lastName": "Turner",
+    "role": "student"
+  },
+  {
+    "email": "sarah.connor@campus360.internal",
+    "username": "sarah_c",
+    "firstName": "Sarah",
+    "lastName": "Connor",
+    "role": "faculty"
+  },
+  {
+    "email": "system.registrar@campus360.internal",
+    "username": "registrar_bot",
+    "firstName": "SIS",
+    "lastName": "Registrar",
+    "role": "external_service"
+  }
+]

@@ -1,0 +1,30 @@
+# Node dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs/
+*.log
+
+# Coverage directory used by testing tools
+coverage/
+.nyc_output/
+
+# OS and Editor files
+.DS_Store
+Thumbs.db
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Runtime data
+data/
+*.sqlite
+temp/

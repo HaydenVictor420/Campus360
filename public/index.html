@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Campus360 Professional Login & Authentication Portal">
+  <title>Campus360 | Secure Authentication Portal</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <main id="main-content" class="portal-container" role="main">
+    <header class="portal-header">
+      <div class="portal-badge" aria-label="System status">
+        <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#10b981;"></span>
+        Campus360 Security Gateway
+      </div>
+      <h1 class="portal-title">Identity & Access</h1>
+      <p class="portal-subtitle">Secure single sign-on for students, faculty & administration</p>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs" role="tablist" aria-label="Authentication views">
+      <button id="tab-login" class="nav-tab active" role="tab" aria-selected="true" aria-controls="view-login">Sign In</button>
+      <button id="tab-register" class="nav-tab" role="tab" aria-selected="false" aria-controls="view-register">Register</button>
+      <button id="tab-forgot" class="nav-tab" role="tab" aria-selected="false" aria-controls="view-forgot">Recovery</button>
+    </nav>
+
+    <!-- Global Alert / Status Box -->
+    <div id="alert-box" class="alert-box" role="alert" aria-live="polite">
+      <span id="alert-msg"></span>
+    </div>
+
+    <!-- 1. Sign In Form -->
+    <section id="view-login" class="form-view active" role="tabpanel" aria-labelledby="tab-login">
+      <form id="form-login" novalidate>
+        <div class="form-group">
+          <label for="login-identifier" class="form-label">Email or Username</label>
+          <div class="input-wrapper">
+            <input type="text" id="login-identifier" class="form-input" placeholder="e.g. student1 or student@campus360.internal" required autocomplete="username">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="login-password" class="form-label">Password</label>
+          <div class="input-wrapper">
+            <input type="password" id="login-password" class="form-input" placeholder="••••••••" required autocomplete="current-password">
+            <button type="button" class="password-toggle" data-target="login-password" aria-label="Show password">Show</button>
+          </div>
+        </div>
+
+        <div class="form-footer">
+          <label style="display:flex; align-items:center; gap:0.4rem; cursor:pointer; font-size:0.825rem; color:var(--text-muted);">
+            <input type="checkbox" id="login-remember" style="accent-color:var(--primary);"> Remember session
+          </label>
+          <button type="button" class="link-btn" data-switch-view="forgot">Forgot Password?</button>
+        </div>
+
+        <button type="submit" id="btn-login-submit" class="btn-primary">
+          <span class="spinner"></span>
+          <span>Authenticate Session</span>
+        </button>
+      </form>
+
+      <div style="margin-top:1.25rem; padding:0.75rem; background:rgba(15,23,42,0.4); border-radius:6px; font-size:0.75rem; color:#94a3b8; border:1px dashed #334155;">
+        <strong>Quick Demo Credentials:</strong><br>
+        Admin: <code>admin@campus360.internal</code> / <code>Admin@12345</code><br>
+        Student: <code>student@campus360.internal</code> / <code>Student@12345</code>
+      </div>
+    </section>
+
+    <!-- 2. Registration Form -->
+    <section id="view-register" class="form-view" role="tabpanel" aria-labelledby="tab-register">
+      <form id="form-register" novalidate>
+        <div style="display:flex; gap:0.75rem;">
+          <div class="form-group" style="flex:1;">
+            <label for="reg-firstname" class="form-label">First Name</label>
+            <input type="text" id="reg-firstname" class="form-input" placeholder="Sanjay" required autocomplete="given-name">
+          </div>
+          <div class="form-group" style="flex:1;">
+            <label for="reg-lastname" class="form-label">Last Name</label>
+            <input type="text" id="reg-lastname" class="form-input" placeholder="Kumar" required autocomplete="family-name">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="reg-email" class="form-label">Campus Email</label>
+          <input type="email" id="reg-email" class="form-input" placeholder="user@campus360.internal" required autocomplete="email">
+        </div>
+
+        <div class="form-group">
+          <label for="reg-username" class="form-label">Desired Username</label>
+          <input type="text" id="reg-username" class="form-input" placeholder="sanjay_k" required autocomplete="username">
+        </div>
+
+        <div class="form-group">
+          <label for="reg-role" class="form-label">Campus Affiliation / Role</label>
+          <select id="reg-role" class="form-select">
+            <option value="student">Student</option>
+            <option value="faculty">Faculty / Instructor</option>
+            <option value="admin">Campus Administrator</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="reg-password" class="form-label">Password</label>
+          <div class="input-wrapper">
+            <input type="password" id="reg-password" class="form-input" placeholder="Min 8 chars, 1 uppercase, number & symbol" required autocomplete="new-password">
+            <button type="button" class="password-toggle" data-target="reg-password" aria-label="Show password">Show</button>
+          </div>
+          <div class="strength-meter">
+            <div id="reg-strength-fill" class="strength-fill"></div>
+          </div>
+          <p id="reg-strength-text" class="strength-label">Minimum 8 characters with letters, numbers & symbols</p>
+        </div>
+
+        <div class="form-group">
+          <label for="reg-confirm-password" class="form-label">Confirm Password</label>
+          <div class="input-wrapper">
+            <input type="password" id="reg-confirm-password" class="form-input" placeholder="Repeat password" required autocomplete="new-password">
+            <button type="button" class="password-toggle" data-target="reg-confirm-password" aria-label="Show password">Show</button>
+          </div>
+        </div>
+
+        <button type="submit" id="btn-register-submit" class="btn-primary">
+          <span class="spinner"></span>
+          <span>Create Account</span>
+        </button>
+      </form>
+    </section>
+
+    <!-- 3. Password Recovery Form -->
+    <section id="view-forgot" class="form-view" role="tabpanel" aria-labelledby="tab-forgot">
+      <form id="form-forgot" novalidate>
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.25rem;">
+          Enter your registered institutional email to receive a cryptographically signed password reset token.
+        </p>
+        <div class="form-group">
+          <label for="forgot-email" class="form-label">Account Email</label>
+          <input type="email" id="forgot-email" class="form-input" placeholder="user@campus360.internal" required>
+        </div>
+
+        <button type="submit" id="btn-forgot-submit" class="btn-primary">
+          <span class="spinner"></span>
+          <span>Send Recovery Token</span>
+        </button>
+
+        <div style="text-align:center; margin-top:1rem;">
+          <button type="button" class="link-btn" data-switch-view="reset">Already have a token? Reset now</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- 4. Reset Password with Token -->
+    <section id="view-reset" class="form-view" role="region" aria-label="Reset Password">
+      <form id="form-reset" novalidate>
+        <div class="form-group">
+          <label for="reset-token" class="form-label">Security Reset Token</label>
+          <input type="text" id="reset-token" class="form-input" placeholder="Paste 64-char reset token" required>
+        </div>
+
+        <div class="form-group">
+          <label for="reset-new-password" class="form-label">New Password</label>
+          <div class="input-wrapper">
+            <input type="password" id="reset-new-password" class="form-input" placeholder="Min 8 characters with symbol" required>
+            <button type="button" class="password-toggle" data-target="reset-new-password" aria-label="Show password">Show</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="reset-confirm-password" class="form-label">Confirm New Password</label>
+          <div class="input-wrapper">
+            <input type="password" id="reset-confirm-password" class="form-input" placeholder="Repeat new password" required>
+            <button type="button" class="password-toggle" data-target="reset-confirm-password" aria-label="Show password">Show</button>
+          </div>
+        </div>
+
+        <button type="submit" id="btn-reset-submit" class="btn-primary">
+          <span class="spinner"></span>
+          <span>Update Credentials</span>
+        </button>
+      </form>
+    </section>
+
+    <footer class="footer-meta">
+      Campus360 Security Architecture &bull; JWT &bull; MySQL &bull; Redis Cache &bull; TLS Ready
+    </footer>
+  </main>
+
+  <script src="js/validation.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+{
+  "servers": {
+    "codebase": {
+      "type": "stdio",
+      "command": "node",
+      "args": [
+        "c:\\Users\\Administrator\\.antigravity-ide\\extensions\\flocca.flocca-0.3.26-universal\\resources\\servers\\codebase\\server.js"
+      ]
+    },
+    "playwright": {
+      "command": "node",
+      "args": [
+        "c:\\Users\\Administrator\\.antigravity-ide\\extensions\\flocca.flocca-0.3.26-universal\\resources\\servers\\playwright\\server.js"
+      ],
+      "env": {
+        "FLOCCA_USER_ID": "79be79e0-5ef0-4e0f-bef8-114874992a48",
+        "FLOCCA_PROXY_URL": "https://api.flocca.app/proxy/playwright"
+      },
+      "type": "stdio"
+    },
+    "pytest": {
+      "command": "python3",
+      "args": [
+        "c:\\Users\\Administrator\\.antigravity-ide\\extensions\\flocca.flocca-0.3.26-universal\\resources\\servers\\pytest\\server.py"
+      ],
+      "env": {
+        "FLOCCA_USER_ID": "79be79e0-5ef0-4e0f-bef8-114874992a48",
+        "FLOCCA_PROXY_URL": "https://api.flocca.app/proxy/pytest"
+      },
+      "type": "stdio"
+    }
+  }
+}
