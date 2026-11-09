@@ -332,6 +332,75 @@ async function runDiagnostics() {
   process.exit(passed === tests.length ? 0 : 1);
 }
 
+async function pushToGithub(token) {
+  printHeader();
+  const { execSync } = require('child_process');
+  const repoUrl = 'https://github.com/Mrtamilan46/Login-Module.git';
+  console.log(`Preparing to push repository to ${repoUrl}...\n`);
+
+  try {
+    console.log('[1/3] Staging all files...');
+    execSync('"C:\\Program Files\\Git\\cmd\\git.exe" add .', { stdio: 'inherit' });
+    try {
+      execSync('"C:\\Program Files\\Git\\cmd\\git.exe" commit -m "feat(auth): complete enterprise login module with MySQL, Redis, Cron, and CI/CD"', { stdio: 'inherit' });
+    } catch {
+      console.log('No new changes to commit.');
+    }
+
+    console.log('[2/3] Aligning branches main and sanjay...');
+    execSync('"C:\\Program Files\\Git\\cmd\\git.exe" branch -f main HEAD', { stdio: 'inherit' });
+    execSync('"C:\\Program Files\\Git\\cmd\\git.exe" branch -f sanjay HEAD', { stdio: 'inherit' });
+
+    console.log('[3/3] Uploading to GitHub...');
+    const targetUrl = token ? `https://${token}@github.com/Mrtamilan46/Login-Module.git` : repoUrl;
+    execSync(`"C:\\Program Files\\Git\\cmd\\git.exe" push "${targetUrl}" main --force`, { stdio: 'inherit' });
+    execSync(`"C:\\Program Files\\Git\\cmd\\git.exe" push "${targetUrl}" sanjay --force`, { stdio: 'inherit' });
+
+    console.log('\n[SUCCESS] Successfully uploaded to: https://github.com/Mrtamilan46/Login-Module');
+  } catch (err) {
+    console.error('\n[ERROR] Push failed:', err.message);
+    console.log('\nTo grant upload permissions, run:');
+    console.log('  node external-manager.js gateway');
+    console.log('  Or run: upload-with-token.bat');
+  }
+  process.exit(0);
+}
+
+function showGateways() {
+  printHeader();
+  console.log(`
+================================================================
+     GITHUB PERMISSION GATEWAYS FOR Mrtamilan46/Login-Module
+================================================================
+
+Target Repository: https://github.com/Mrtamilan46/Login-Module.git
+
+To grant upload permission, choose any of the following 3 gateways:
+
+[GATEWAY 1: One-Click Browser Sign-In (Recommended)]
+  Double-click "push-to-mrtamilan.bat" in this folder.
+  Windows will open Git Credential Manager in your browser.
+  Click "Sign in with your browser" -> Approve -> Upload finishes!
+
+[GATEWAY 2: Personal Access Token (PAT)]
+  1. Open: https://github.com/settings/tokens
+  2. Click "Generate new token (classic)"
+  3. Check the "repo" checkbox and click "Generate token"
+  4. Copy your token (ghp_...)
+  5. Run in terminal:
+     node external-manager.js push-github <YOUR_TOKEN>
+     (Or double-click "upload-with-token.bat" and paste it)
+
+[GATEWAY 3: GitHub CLI (Device Code)]
+  Run: gh auth login
+  Select: GitHub.com -> HTTPS -> Login with a web browser
+  Enter the 8-character device code on github.com/login/device
+  Then run: git push mrtamilan main
+================================================================
+`);
+  process.exit(0);
+}
+
 // Command Router
 const [,, command, ...args] = process.argv;
 
@@ -363,6 +432,13 @@ switch (command) {
   case 'diagnostics':
     runDiagnostics();
     break;
+  case 'push-github':
+    pushToGithub(args[0]);
+    break;
+  case 'gateway':
+  case 'gateways':
+    showGateways();
+    break;
   default:
     printHeader();
     console.log(`
@@ -376,6 +452,8 @@ Available Commands:
   node external-manager.js cron [token-clean|unlock|audit-prune]
   node external-manager.js recode <ENV_KEY> <NEW_VALUE>
   node external-manager.js diagnostics
+  node external-manager.js push-github [token]
+  node external-manager.js gateway
 `);
     process.exit(0);
 }
