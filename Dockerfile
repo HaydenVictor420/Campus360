@@ -43,3 +43,4 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
 
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 CMD ["node", "src/server.js"]
+

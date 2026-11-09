@@ -8,3 +8,4 @@ module.exports = {
   restoreMocks: true,
   testTimeout: 10000
 };
+

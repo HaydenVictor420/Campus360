@@ -20,3 +20,4 @@ jobs:
           echo "Commit: ${{ github.sha }}"
           echo "Ref: ${{ github.ref }}"
           echo "Deployment target: Staging / Production Cluster"
+

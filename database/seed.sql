@@ -7,3 +7,4 @@ VALUES
 ('a0000000-0000-0000-0000-000000000002', 'faculty@campus360.internal', 'faculty1', '$2b$12$K8yR2u/x90oUjO0dG4z1ne7o32k4G5B.G6s9h8w.xY0aB1c2D3e4F', 'John', 'Professor', 'faculty', 1, 1),
 ('a0000000-0000-0000-0000-000000000003', 'student@campus360.internal', 'student1', '$2b$12$K8yR2u/x90oUjO0dG4z1ne7o32k4G5B.G6s9h8w.xY0aB1c2D3e4F', 'Sanjay', 'Kumar', 'student', 1, 1)
 ON DUPLICATE KEY UPDATE updated_at = CURRENT_TIMESTAMP;
+

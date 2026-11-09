@@ -70,3 +70,4 @@ jobs:
           context: .
           push: false
           tags: campus360/auth-module:latest
+

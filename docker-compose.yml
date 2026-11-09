@@ -98,3 +98,4 @@ volumes:
 networks:
   campus360_net:
     driver: bridge
+
