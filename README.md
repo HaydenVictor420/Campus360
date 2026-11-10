@@ -2,7 +2,7 @@
 
 [![Local Preview](https://img.shields.io/badge/Local_App-http%3A%2F%2Flocalhost%3A3000-brightgreen?style=for-the-badge&logo=googlechrome)](http://localhost:3000)
 [![Live Demo](https://img.shields.io/badge/GitHub_Pages-Live_Demo-blue?style=for-the-badge&logo=github)](https://haydenvictor420.github.io/Campus360/)
-[![Branch](https://img.shields.io/badge/Branch-muhil-orange?style=for-the-badge&logo=git)](https://github.com/HaydenVictor420/Campus360/tree/muhil)
+[![Branch](https://img.shields.io/badge/Branch-Muhil-orange?style=for-the-badge&logo=git)](https://github.com/HaydenVictor420/Campus360/tree/Muhil)
 [![Source Code PDF](https://img.shields.io/badge/Documentation-Source_Code_PDF-red?style=for-the-badge&logo=adobeacrobatreader)](./Campus360_Source_Code.pdf)
 
 An evision project implementing an enterprise-grade, interactive Proof of Concept based on architectural designs, student module specifications, and entity-relationship models published across three IEEE research papers:
@@ -13,24 +13,26 @@ An evision project implementing an enterprise-grade, interactive Proof of Concep
 
 ---
 
-## 🌐 Application Access & Live Links
+## 🌐 Quick Links & Access
 
-### 🖥️ 1. Local Server (Default)
-When the local server is running on your computer, click the link below to access the full system:
+### 🖥️ 1. Local Application (Default)
+When the local server is running, access the full interactive system at:
 👉 **[http://localhost:3000](http://localhost:3000)**
 
-> **Note**: If clicking `http://localhost:3000` says *"Site can't be reached"*, start the local server first:
+> [!NOTE]
+> **If `http://localhost:3000` says *"Site can't be reached"***:
+> The local Node server needs to be started on your computer:
 > - **Option A (One-Click)**: Double-click **`start.bat`** in this project folder.
-> - **Option B (Terminal)**: Run `npm start` or `node server.js` in your terminal.
+> - **Option B (Terminal)**: Run `npm start` (or `node server.js`) in your terminal.
 >
-> Once started, `http://localhost:3000` will immediately open and respond in your browser!
+> The server will boot instantly and automatically launch `http://localhost:3000` in your default browser.
 
-### 🚀 2. Live Web Demo (GitHub Pages)
-You can also launch and explore Campus360 directly in any browser without installing or running a local server:
+### 🚀 2. Live Online Demo (GitHub Pages)
+Explore Campus360 directly in your browser without needing to run any local server:
 👉 **[https://haydenvictor420.github.io/Campus360/](https://haydenvictor420.github.io/Campus360/)**
 
 ### 📄 3. Complete Source Code PDF
-Download or view the complete compiled codebase with syntax highlighting and line numbers across all 9 modules (~3,700 lines):
+Download or view the complete compiled codebase documentation with line numbers, syntax highlighting, and table of contents across all 9 modules (~3,700 lines):
 👉 **[Download Campus360_Source_Code.pdf](./Campus360_Source_Code.pdf)**
 
 ---
@@ -116,16 +118,16 @@ The data model follows the ER diagram specified in **IEEE 7384005**:
 
 ---
 
-## 🚀 Running the Project Locally
+## 🚀 Running the PoC Locally
 
+### Option A: One-Click Windows Script
+Double-click **`start.bat`**.
+
+### Option B: Built-in Zero-Dependency Node.js Server
 ```bash
-# Clone the repository
-git clone -b muhil https://github.com/HaydenVictor420/Campus360.git
-cd Campus360
-
-# Start the server
-npm start
-# (or double-click start.bat)
+node server.js
 ```
+Then navigate to: **`http://localhost:3000`**
 
-Then visit **`http://localhost:3000`** in any browser.
+### Option C: Direct Browser Launch
+Open `index.html` directly in any modern browser (Chrome, Edge, Firefox, Safari).

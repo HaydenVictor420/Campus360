@@ -15,7 +15,9 @@ const filesToInclude = [
   { name: 'data.js', lang: 'javascript', desc: 'Data Layer (Tier 4) - Seed Data & Entity Schemas' },
   { name: 'app.js', lang: 'javascript', desc: 'Business Logic Layer (Tier 2) & Data Access Layer (Tier 3)' },
   { name: 'start.bat', lang: 'bat', desc: 'Windows One-Click Startup Script' },
-  { name: '.gitignore', lang: 'plaintext', desc: 'Git Ignored Files Specification' }
+  { name: '.gitignore', lang: 'plaintext', desc: 'Git Ignored Files Specification' },
+  { name: '.github/workflows/pages.yml', lang: 'yaml', desc: 'GitHub Actions - Automated GitHub Pages Deployment' },
+  { name: 'build-code-pdf.js', lang: 'javascript', desc: 'Automated Full-Codebase PDF Documentation Generator' }
 ];
 
 function escapeHtml(text) {

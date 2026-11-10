@@ -319,7 +319,7 @@
         </div>
         <div class="cover-meta-item">
           <div class="cover-meta-label">Total Codebase Volume</div>
-          <div class="cover-meta-val">9 files &bull; 3,673 total lines</div>
+          <div class="cover-meta-val">11 files &bull; 4,192 total lines</div>
         </div>
       </div>
     </div>
@@ -346,7 +346,7 @@
       <td class="toc-file"><a href="#file-0">README.md</a></td>
       <td class="toc-desc">Project Overview, IEEE Research Mapping & System Architecture</td>
       <td class="toc-lang">MARKDOWN</td>
-      <td class="toc-lines">102 lines</td>
+      <td class="toc-lines">134 lines</td>
     </tr>
   
     <tr>
@@ -354,7 +354,7 @@
       <td class="toc-file"><a href="#file-1">package.json</a></td>
       <td class="toc-desc">Project Metadata, Dependencies & NPM Scripts</td>
       <td class="toc-lang">JSON</td>
-      <td class="toc-lines">20 lines</td>
+      <td class="toc-lines">21 lines</td>
     </tr>
   
     <tr>
@@ -413,6 +413,22 @@
       <td class="toc-lines">12 lines</td>
     </tr>
   
+    <tr>
+      <td class="toc-num">10</td>
+      <td class="toc-file"><a href="#file-9">.github/workflows/pages.yml</a></td>
+      <td class="toc-desc">GitHub Actions - Automated GitHub Pages Deployment</td>
+      <td class="toc-lang">YAML</td>
+      <td class="toc-lines">38 lines</td>
+    </tr>
+  
+    <tr>
+      <td class="toc-num">11</td>
+      <td class="toc-file"><a href="#file-10">build-code-pdf.js</a></td>
+      <td class="toc-desc">Automated Full-Codebase PDF Documentation Generator</td>
+      <td class="toc-lang">JAVASCRIPT</td>
+      <td class="toc-lines">448 lines</td>
+    </tr>
+  
       </tbody>
     </table>
   </div>
@@ -427,114 +443,146 @@
           <h2 class="file-title">README.md</h2>
         </div>
         <div class="file-stats">
-          <span>102 lines</span>
+          <span>134 lines</span>
           <span>&bull;</span>
-          <span>4.9 KB</span>
+          <span>6.7 KB</span>
         </div>
       </div>
       <div class="file-description">Project Overview, IEEE Research Mapping & System Architecture</div>
       <pre class="code-block"><code><span class="line-num">1</span><span class="line-text"># Campus360 — Educational Institution Management Information System (IMS)</span>
 <span class="line-num">2</span><span class="line-text">&nbsp;</span>
-<span class="line-num">3</span><span class="line-text">An evision project implementing an enterprise-grade, interactive Proof of Concept based on architectural designs, student module specifications, and entity-relationship models published across three IEEE research papers:</span>
-<span class="line-num">4</span><span class="line-text">&nbsp;</span>
-<span class="line-num">5</span><span class="line-text">1. **IEEE 10058674**: *&quot;Institution Management System: Student Module&quot;*</span>
-<span class="line-num">6</span><span class="line-text">2. **IEEE 10516390**: *&quot;Educational Institution Management Information System&quot;*</span>
-<span class="line-num">7</span><span class="line-text">3. **IEEE 7384005**: *&quot;College Student Management System Design Using Computer Aided System&quot;*</span>
-<span class="line-num">8</span><span class="line-text">&nbsp;</span>
-<span class="line-num">9</span><span class="line-text">---</span>
-<span class="line-num">10</span><span class="line-text">&nbsp;</span>
-<span class="line-num">11</span><span class="line-text">## 🏛️ IEEE Research Paper Architectural Mapping</span>
-<span class="line-num">12</span><span class="line-text">&nbsp;</span>
-<span class="line-num">13</span><span class="line-text">| IEEE Publication | Core Contribution in Paper | Realization in this PoC |</span>
-<span class="line-num">14</span><span class="line-text">| :--- | :--- | :--- |</span>
-<span class="line-num">15</span><span class="line-text">| **IEEE 10058674** | **Student Module &amp; Record Consolidation**: Eliminates record redundancy. Integrates admission details, transfer details, promotion history, course evaluations, corporate placement training, events attended, and student research works/publications. | Full **Student Dossier Modal**, **Promotion Progress Engine**, **Placement &amp; Internship Directorate**, and **Research &amp; Capstone Showcase** with real-time editing and state persistence. |</span>
-<span class="line-num">16</span><span class="line-text">| **IEEE 10516390** | **Central Management Information System (MIS)**: Built using web technologies (PHP/JS/CSS). Centralizes multi-user data (administrators, instructors, students) to reduce administrative overhead and improve communication. | **Multi-Role Portal Switcher** (`Admin`, `Faculty`, `Student`), **Institutional Notice Board &amp; Broadcast Hub**, and interactive KPI metrics for institutional governance. |</span>
-<span class="line-num">17</span><span class="line-text">| **IEEE 7384005** | **4-Tier Computer-Aided System &amp; ER Model**: Hierarchical separation into (1) Web Display Layer, (2) Business Logic Layer, (3) Data Access Layer, (4) Database Layer. Relational ER model connecting Students, Teachers, Departments, Majors, Classes, Courses, and Comprehensive Scores. | Strict modular 4-tier JavaScript implementation (`app.js`), interactive **4-Tier Architecture Viewer**, and a visual **ER Schema Explorer** with PK/FK definitions. |</span>
-<span class="line-num">18</span><span class="line-text">&nbsp;</span>
-<span class="line-num">19</span><span class="line-text">---</span>
-<span class="line-num">20</span><span class="line-text">&nbsp;</span>
-<span class="line-num">21</span><span class="line-text">## 🏗️ 4-Tier System Architecture (IEEE 7384005)</span>
-<span class="line-num">22</span><span class="line-text">&nbsp;</span>
-<span class="line-num">23</span><span class="line-text">```mermaid</span>
-<span class="line-num">24</span><span class="line-text">graph TD</span>
-<span class="line-num">25</span><span class="line-text">    subgraph Tier 1: Web Display Layer</span>
-<span class="line-num">26</span><span class="line-text">        A1[Admin Management Portal]</span>
-<span class="line-num">27</span><span class="line-text">        A2[Faculty Grade &amp; Supervision Portal]</span>
-<span class="line-num">28</span><span class="line-text">        A3[Student Self-Service Portal]</span>
-<span class="line-num">29</span><span class="line-text">    end</span>
-<span class="line-num">30</span><span class="line-text">&nbsp;</span>
-<span class="line-num">31</span><span class="line-text">    subgraph Tier 2: Business Logic Layer</span>
-<span class="line-num">32</span><span class="line-text">        B1[Comprehensive GPA Calculator]</span>
-<span class="line-num">33</span><span class="line-text">        B2[Semester Promotion Engine]</span>
-<span class="line-num">34</span><span class="line-text">        B3[Placement Eligibility Auditor]</span>
-<span class="line-num">35</span><span class="line-text">        B4[Role-Based Access Controller]</span>
-<span class="line-num">36</span><span class="line-text">    end</span>
+<span class="line-num">3</span><span class="line-text">[![Local Preview](https://img.shields.io/badge/Local_App-http%3A%2F%2Flocalhost%3A3000-brightgreen?style=for-the-badge&amp;logo=googlechrome)](http://localhost:3000)</span>
+<span class="line-num">4</span><span class="line-text">[![Live Demo](https://img.shields.io/badge/GitHub_Pages-Live_Demo-blue?style=for-the-badge&amp;logo=github)](https://haydenvictor420.github.io/Campus360/)</span>
+<span class="line-num">5</span><span class="line-text">[![Branch](https://img.shields.io/badge/Branch-Muhil-orange?style=for-the-badge&amp;logo=git)](https://github.com/HaydenVictor420/Campus360/tree/Muhil)</span>
+<span class="line-num">6</span><span class="line-text">[![Source Code PDF](https://img.shields.io/badge/Documentation-Source_Code_PDF-red?style=for-the-badge&amp;logo=adobeacrobatreader)](./Campus360_Source_Code.pdf)</span>
+<span class="line-num">7</span><span class="line-text">&nbsp;</span>
+<span class="line-num">8</span><span class="line-text">An evision project implementing an enterprise-grade, interactive Proof of Concept based on architectural designs, student module specifications, and entity-relationship models published across three IEEE research papers:</span>
+<span class="line-num">9</span><span class="line-text">&nbsp;</span>
+<span class="line-num">10</span><span class="line-text">1. **IEEE 10058674**: *&quot;Institution Management System: Student Module&quot;*</span>
+<span class="line-num">11</span><span class="line-text">2. **IEEE 10516390**: *&quot;Educational Institution Management Information System&quot;*</span>
+<span class="line-num">12</span><span class="line-text">3. **IEEE 7384005**: *&quot;College Student Management System Design Using Computer Aided System&quot;*</span>
+<span class="line-num">13</span><span class="line-text">&nbsp;</span>
+<span class="line-num">14</span><span class="line-text">---</span>
+<span class="line-num">15</span><span class="line-text">&nbsp;</span>
+<span class="line-num">16</span><span class="line-text">## 🌐 Quick Links &amp; Access</span>
+<span class="line-num">17</span><span class="line-text">&nbsp;</span>
+<span class="line-num">18</span><span class="line-text">### 🖥️ 1. Local Application (Default)</span>
+<span class="line-num">19</span><span class="line-text">When the local server is running, access the full interactive system at:</span>
+<span class="line-num">20</span><span class="line-text">👉 **[http://localhost:3000](http://localhost:3000)**</span>
+<span class="line-num">21</span><span class="line-text">&nbsp;</span>
+<span class="line-num">22</span><span class="line-text">&gt; [!NOTE]</span>
+<span class="line-num">23</span><span class="line-text">&gt; **If `http://localhost:3000` says *&quot;Site can&#039;t be reached&quot;***:</span>
+<span class="line-num">24</span><span class="line-text">&gt; The local Node server needs to be started on your computer:</span>
+<span class="line-num">25</span><span class="line-text">&gt; - **Option A (One-Click)**: Double-click **`start.bat`** in this project folder.</span>
+<span class="line-num">26</span><span class="line-text">&gt; - **Option B (Terminal)**: Run `npm start` (or `node server.js`) in your terminal.</span>
+<span class="line-num">27</span><span class="line-text">&gt;</span>
+<span class="line-num">28</span><span class="line-text">&gt; The server will boot instantly and automatically launch `http://localhost:3000` in your default browser.</span>
+<span class="line-num">29</span><span class="line-text">&nbsp;</span>
+<span class="line-num">30</span><span class="line-text">### 🚀 2. Live Online Demo (GitHub Pages)</span>
+<span class="line-num">31</span><span class="line-text">Explore Campus360 directly in your browser without needing to run any local server:</span>
+<span class="line-num">32</span><span class="line-text">👉 **[https://haydenvictor420.github.io/Campus360/](https://haydenvictor420.github.io/Campus360/)**</span>
+<span class="line-num">33</span><span class="line-text">&nbsp;</span>
+<span class="line-num">34</span><span class="line-text">### 📄 3. Complete Source Code PDF</span>
+<span class="line-num">35</span><span class="line-text">Download or view the complete compiled codebase documentation with line numbers, syntax highlighting, and table of contents across all 9 modules (~3,700 lines):</span>
+<span class="line-num">36</span><span class="line-text">👉 **[Download Campus360_Source_Code.pdf](./Campus360_Source_Code.pdf)**</span>
 <span class="line-num">37</span><span class="line-text">&nbsp;</span>
-<span class="line-num">38</span><span class="line-text">    subgraph Tier 3: Data Access Layer (DAL)</span>
-<span class="line-num">39</span><span class="line-text">        C1[Student Repository]</span>
-<span class="line-num">40</span><span class="line-text">        C2[Schema Relational Mapper]</span>
-<span class="line-num">41</span><span class="line-text">        C3[JSON Export / Restore Engine]</span>
-<span class="line-num">42</span><span class="line-text">    end</span>
-<span class="line-num">43</span><span class="line-text">&nbsp;</span>
-<span class="line-num">44</span><span class="line-text">    subgraph Tier 4: Database Layer</span>
-<span class="line-num">45</span><span class="line-text">        D1[(Central Normalized Schema)]</span>
-<span class="line-num">46</span><span class="line-text">        D2[(Audit &amp; Promotion Logs)]</span>
-<span class="line-num">47</span><span class="line-text">        D3[(Notice &amp; Communication DB)]</span>
-<span class="line-num">48</span><span class="line-text">    end</span>
+<span class="line-num">38</span><span class="line-text">---</span>
+<span class="line-num">39</span><span class="line-text">&nbsp;</span>
+<span class="line-num">40</span><span class="line-text">## 🏛️ IEEE Research Paper Architectural Mapping</span>
+<span class="line-num">41</span><span class="line-text">&nbsp;</span>
+<span class="line-num">42</span><span class="line-text">| IEEE Publication | Core Contribution in Paper | Realization in this PoC |</span>
+<span class="line-num">43</span><span class="line-text">| :--- | :--- | :--- |</span>
+<span class="line-num">44</span><span class="line-text">| **IEEE 10058674** | **Student Module &amp; Record Consolidation**: Eliminates record redundancy. Integrates admission details, transfer details, promotion history, course evaluations, corporate placement training, events attended, and student research works/publications. | Full **Student Dossier Modal**, **Promotion Progress Engine**, **Placement &amp; Internship Directorate**, and **Research &amp; Capstone Showcase** with real-time editing and state persistence. |</span>
+<span class="line-num">45</span><span class="line-text">| **IEEE 10516390** | **Central Management Information System (MIS)**: Built using web technologies (PHP/JS/CSS). Centralizes multi-user data (administrators, instructors, students) to reduce administrative overhead and improve communication. | **Multi-Role Portal Switcher** (`Admin`, `Faculty`, `Student`), **Institutional Notice Board &amp; Broadcast Hub**, and interactive KPI metrics for institutional governance. |</span>
+<span class="line-num">46</span><span class="line-text">| **IEEE 7384005** | **4-Tier Computer-Aided System &amp; ER Model**: Hierarchical separation into (1) Web Display Layer, (2) Business Logic Layer, (3) Data Access Layer, (4) Database Layer. Relational ER model connecting Students, Teachers, Departments, Majors, Classes, Courses, and Comprehensive Scores. | Strict modular 4-tier JavaScript implementation (`app.js`), interactive **4-Tier Architecture Viewer**, and a visual **ER Schema Explorer** with PK/FK definitions. |</span>
+<span class="line-num">47</span><span class="line-text">&nbsp;</span>
+<span class="line-num">48</span><span class="line-text">---</span>
 <span class="line-num">49</span><span class="line-text">&nbsp;</span>
-<span class="line-num">50</span><span class="line-text">    Tier 1 --&gt; Tier 2</span>
-<span class="line-num">51</span><span class="line-text">    Tier 2 --&gt; Tier 3</span>
-<span class="line-num">52</span><span class="line-text">    Tier 3 --&gt; Tier 4</span>
-<span class="line-num">53</span><span class="line-text">```</span>
-<span class="line-num">54</span><span class="line-text">&nbsp;</span>
-<span class="line-num">55</span><span class="line-text">---</span>
-<span class="line-num">56</span><span class="line-text">&nbsp;</span>
-<span class="line-num">57</span><span class="line-text">## 🧩 Comprehensive Entity-Relationship (ER) Schema</span>
-<span class="line-num">58</span><span class="line-text">&nbsp;</span>
-<span class="line-num">59</span><span class="line-text">The data model follows the ER diagram specified in **IEEE 7384005**:</span>
-<span class="line-num">60</span><span class="line-text">&nbsp;</span>
-<span class="line-num">61</span><span class="line-text">- `STUDENT_INFO`: `(PK: id, rollNo, name, email, FK: deptId, FK: majorId, FK: classId, cgpa, totalCreditsEarned, academicStatus, promotionStatus)`</span>
-<span class="line-num">62</span><span class="line-text">- `TEACHER_INFO`: `(PK: id, name, department, title, email)`</span>
-<span class="line-num">63</span><span class="line-text">- `DEPARTMENT_INFO`: `(PK: id, code, name, head)`</span>
-<span class="line-num">64</span><span class="line-text">- `MAJOR_INFO`: `(PK: id, FK: deptId, name, degree)`</span>
-<span class="line-num">65</span><span class="line-text">- `CLASS_INFO`: `(PK: id, name, currentSemester, FK: counselorId)`</span>
-<span class="line-num">66</span><span class="line-text">- `COURSE_INFO`: `(PK: id, code, name, credits, type, dept, FK: instructorId)`</span>
-<span class="line-num">67</span><span class="line-text">- `COMPREHENSIVE_SCORE`: `(Internal [30] + Assignments [20] + Final Exam [50] = Total Score [100] ➔ Grade Point &amp; Letter Grade)`</span>
-<span class="line-num">68</span><span class="line-text">- `PLACEMENT_INFO`: `(company, role, ctc, offerDate, status)`</span>
-<span class="line-num">69</span><span class="line-text">- `RESEARCH_AND_PROJECTS`: `(title, type, venue, guide, status)`</span>
-<span class="line-num">70</span><span class="line-text">&nbsp;</span>
-<span class="line-num">71</span><span class="line-text">---</span>
+<span class="line-num">50</span><span class="line-text">## 🏗️ 4-Tier System Architecture (IEEE 7384005)</span>
+<span class="line-num">51</span><span class="line-text">&nbsp;</span>
+<span class="line-num">52</span><span class="line-text">```mermaid</span>
+<span class="line-num">53</span><span class="line-text">graph TD</span>
+<span class="line-num">54</span><span class="line-text">    subgraph Tier 1: Web Display Layer</span>
+<span class="line-num">55</span><span class="line-text">        A1[Admin Management Portal]</span>
+<span class="line-num">56</span><span class="line-text">        A2[Faculty Grade &amp; Supervision Portal]</span>
+<span class="line-num">57</span><span class="line-text">        A3[Student Self-Service Portal]</span>
+<span class="line-num">58</span><span class="line-text">    end</span>
+<span class="line-num">59</span><span class="line-text">&nbsp;</span>
+<span class="line-num">60</span><span class="line-text">    subgraph Tier 2: Business Logic Layer</span>
+<span class="line-num">61</span><span class="line-text">        B1[Comprehensive GPA Calculator]</span>
+<span class="line-num">62</span><span class="line-text">        B2[Semester Promotion Engine]</span>
+<span class="line-num">63</span><span class="line-text">        B3[Placement Eligibility Auditor]</span>
+<span class="line-num">64</span><span class="line-text">        B4[Role-Based Access Controller]</span>
+<span class="line-num">65</span><span class="line-text">    end</span>
+<span class="line-num">66</span><span class="line-text">&nbsp;</span>
+<span class="line-num">67</span><span class="line-text">    subgraph Tier 3: Data Access Layer (DAL)</span>
+<span class="line-num">68</span><span class="line-text">        C1[Student Repository]</span>
+<span class="line-num">69</span><span class="line-text">        C2[Schema Relational Mapper]</span>
+<span class="line-num">70</span><span class="line-text">        C3[JSON Export / Restore Engine]</span>
+<span class="line-num">71</span><span class="line-text">    end</span>
 <span class="line-num">72</span><span class="line-text">&nbsp;</span>
-<span class="line-num">73</span><span class="line-text">## ⚡ Key Features</span>
-<span class="line-num">74</span><span class="line-text">&nbsp;</span>
-<span class="line-num">75</span><span class="line-text">1. **Role-Based Simulation**:</span>
-<span class="line-num">76</span><span class="line-text">   - **Administrator**: Full CRUD on student records, instant semester promotion, and campus-wide notice publishing.</span>
-<span class="line-num">77</span><span class="line-text">   - **Faculty**: Grade entry interface with automatic weighted GPA calculation.</span>
-<span class="line-num">78</span><span class="line-text">   - **Student**: View enrolled modules, comprehensive breakdown, internships, and transcript history.</span>
-<span class="line-num">79</span><span class="line-text">2. **Dynamic Search &amp; Multi-Predicate Filtering**:</span>
-<span class="line-num">80</span><span class="line-text">   - Instant live search across names, roll numbers, and emails.</span>
-<span class="line-num">81</span><span class="line-text">   - Filter by academic department and placement/academic status.</span>
-<span class="line-num">82</span><span class="line-text">3. **Comprehensive Score Engine**:</span>
-<span class="line-num">83</span><span class="line-text">   - Calculates letter grades (`O`, `A+`, `A`, `B+`, `B`, `C`, `F`) and GPAs dynamically.</span>
-<span class="line-num">84</span><span class="line-text">4. **Placement Directorate &amp; Eligibility Audit**:</span>
-<span class="line-num">85</span><span class="line-text">   - Automates candidate shortlisting based on CGPA thresholds and zero-backlog checks.</span>
-<span class="line-num">86</span><span class="line-text">5. **Zero-Dependency Architecture**:</span>
-<span class="line-num">87</span><span class="line-text">   - Pure HTML5, modern vanilla CSS, and vanilla JavaScript.</span>
-<span class="line-num">88</span><span class="line-text">   - Persistent `localStorage` database with one-click JSON export and reset to seed data.</span>
+<span class="line-num">73</span><span class="line-text">    subgraph Tier 4: Database Layer</span>
+<span class="line-num">74</span><span class="line-text">        D1[(Central Normalized Schema)]</span>
+<span class="line-num">75</span><span class="line-text">        D2[(Audit &amp; Promotion Logs)]</span>
+<span class="line-num">76</span><span class="line-text">        D3[(Notice &amp; Communication DB)]</span>
+<span class="line-num">77</span><span class="line-text">    end</span>
+<span class="line-num">78</span><span class="line-text">&nbsp;</span>
+<span class="line-num">79</span><span class="line-text">    Tier 1 --&gt; Tier 2</span>
+<span class="line-num">80</span><span class="line-text">    Tier 2 --&gt; Tier 3</span>
+<span class="line-num">81</span><span class="line-text">    Tier 3 --&gt; Tier 4</span>
+<span class="line-num">82</span><span class="line-text">```</span>
+<span class="line-num">83</span><span class="line-text">&nbsp;</span>
+<span class="line-num">84</span><span class="line-text">---</span>
+<span class="line-num">85</span><span class="line-text">&nbsp;</span>
+<span class="line-num">86</span><span class="line-text">## 🧩 Comprehensive Entity-Relationship (ER) Schema</span>
+<span class="line-num">87</span><span class="line-text">&nbsp;</span>
+<span class="line-num">88</span><span class="line-text">The data model follows the ER diagram specified in **IEEE 7384005**:</span>
 <span class="line-num">89</span><span class="line-text">&nbsp;</span>
-<span class="line-num">90</span><span class="line-text">---</span>
-<span class="line-num">91</span><span class="line-text">&nbsp;</span>
-<span class="line-num">92</span><span class="line-text">## 🚀 Running the PoC Locally</span>
-<span class="line-num">93</span><span class="line-text">&nbsp;</span>
-<span class="line-num">94</span><span class="line-text">### Option A: Using the Built-in Zero-Dependency Node.js Server</span>
-<span class="line-num">95</span><span class="line-text">```bash</span>
-<span class="line-num">96</span><span class="line-text">node server.js</span>
-<span class="line-num">97</span><span class="line-text">```</span>
-<span class="line-num">98</span><span class="line-text">Then navigate to: **`http://localhost:3000`**</span>
+<span class="line-num">90</span><span class="line-text">- `STUDENT_INFO`: `(PK: id, rollNo, name, email, FK: deptId, FK: majorId, FK: classId, cgpa, totalCreditsEarned, academicStatus, promotionStatus)`</span>
+<span class="line-num">91</span><span class="line-text">- `TEACHER_INFO`: `(PK: id, name, department, title, email)`</span>
+<span class="line-num">92</span><span class="line-text">- `DEPARTMENT_INFO`: `(PK: id, code, name, head)`</span>
+<span class="line-num">93</span><span class="line-text">- `MAJOR_INFO`: `(PK: id, FK: deptId, name, degree)`</span>
+<span class="line-num">94</span><span class="line-text">- `CLASS_INFO`: `(PK: id, name, currentSemester, FK: counselorId)`</span>
+<span class="line-num">95</span><span class="line-text">- `COURSE_INFO`: `(PK: id, code, name, credits, type, dept, FK: instructorId)`</span>
+<span class="line-num">96</span><span class="line-text">- `COMPREHENSIVE_SCORE`: `(Internal [30] + Assignments [20] + Final Exam [50] = Total Score [100] ➔ Grade Point &amp; Letter Grade)`</span>
+<span class="line-num">97</span><span class="line-text">- `PLACEMENT_INFO`: `(company, role, ctc, offerDate, status)`</span>
+<span class="line-num">98</span><span class="line-text">- `RESEARCH_AND_PROJECTS`: `(title, type, venue, guide, status)`</span>
 <span class="line-num">99</span><span class="line-text">&nbsp;</span>
-<span class="line-num">100</span><span class="line-text">### Option B: Direct Browser Launch</span>
-<span class="line-num">101</span><span class="line-text">Open `index.html` directly in any modern browser (Chrome, Edge, Firefox, Safari).</span>
-<span class="line-num">102</span><span class="line-text">&nbsp;</span></code></pre>
+<span class="line-num">100</span><span class="line-text">---</span>
+<span class="line-num">101</span><span class="line-text">&nbsp;</span>
+<span class="line-num">102</span><span class="line-text">## ⚡ Key Features</span>
+<span class="line-num">103</span><span class="line-text">&nbsp;</span>
+<span class="line-num">104</span><span class="line-text">1. **Role-Based Simulation**:</span>
+<span class="line-num">105</span><span class="line-text">   - **Administrator**: Full CRUD on student records, instant semester promotion, and campus-wide notice publishing.</span>
+<span class="line-num">106</span><span class="line-text">   - **Faculty**: Grade entry interface with automatic weighted GPA calculation.</span>
+<span class="line-num">107</span><span class="line-text">   - **Student**: View enrolled modules, comprehensive breakdown, internships, and transcript history.</span>
+<span class="line-num">108</span><span class="line-text">2. **Dynamic Search &amp; Multi-Predicate Filtering**:</span>
+<span class="line-num">109</span><span class="line-text">   - Instant live search across names, roll numbers, and emails.</span>
+<span class="line-num">110</span><span class="line-text">   - Filter by academic department and placement/academic status.</span>
+<span class="line-num">111</span><span class="line-text">3. **Comprehensive Score Engine**:</span>
+<span class="line-num">112</span><span class="line-text">   - Calculates letter grades (`O`, `A+`, `A`, `B+`, `B`, `C`, `F`) and GPAs dynamically.</span>
+<span class="line-num">113</span><span class="line-text">4. **Placement Directorate &amp; Eligibility Audit**:</span>
+<span class="line-num">114</span><span class="line-text">   - Automates candidate shortlisting based on CGPA thresholds and zero-backlog checks.</span>
+<span class="line-num">115</span><span class="line-text">5. **Zero-Dependency Architecture**:</span>
+<span class="line-num">116</span><span class="line-text">   - Pure HTML5, modern vanilla CSS, and vanilla JavaScript.</span>
+<span class="line-num">117</span><span class="line-text">   - Persistent `localStorage` database with one-click JSON export and reset to seed data.</span>
+<span class="line-num">118</span><span class="line-text">&nbsp;</span>
+<span class="line-num">119</span><span class="line-text">---</span>
+<span class="line-num">120</span><span class="line-text">&nbsp;</span>
+<span class="line-num">121</span><span class="line-text">## 🚀 Running the PoC Locally</span>
+<span class="line-num">122</span><span class="line-text">&nbsp;</span>
+<span class="line-num">123</span><span class="line-text">### Option A: One-Click Windows Script</span>
+<span class="line-num">124</span><span class="line-text">Double-click **`start.bat`**.</span>
+<span class="line-num">125</span><span class="line-text">&nbsp;</span>
+<span class="line-num">126</span><span class="line-text">### Option B: Built-in Zero-Dependency Node.js Server</span>
+<span class="line-num">127</span><span class="line-text">```bash</span>
+<span class="line-num">128</span><span class="line-text">node server.js</span>
+<span class="line-num">129</span><span class="line-text">```</span>
+<span class="line-num">130</span><span class="line-text">Then navigate to: **`http://localhost:3000`**</span>
+<span class="line-num">131</span><span class="line-text">&nbsp;</span>
+<span class="line-num">132</span><span class="line-text">### Option C: Direct Browser Launch</span>
+<span class="line-num">133</span><span class="line-text">Open `index.html` directly in any modern browser (Chrome, Edge, Firefox, Safari).</span>
+<span class="line-num">134</span><span class="line-text">&nbsp;</span></code></pre>
     </div>
   
     <div class="file-section" id="file-1">
@@ -545,9 +593,9 @@
           <h2 class="file-title">package.json</h2>
         </div>
         <div class="file-stats">
-          <span>20 lines</span>
+          <span>21 lines</span>
           <span>&bull;</span>
-          <span>0.5 KB</span>
+          <span>0.6 KB</span>
         </div>
       </div>
       <div class="file-description">Project Metadata, Dependencies & NPM Scripts</div>
@@ -559,18 +607,19 @@
 <span class="line-num">6</span><span class="line-text">  &quot;scripts&quot;: {</span>
 <span class="line-num">7</span><span class="line-text">    &quot;start&quot;: &quot;node server.js&quot;,</span>
 <span class="line-num">8</span><span class="line-text">    &quot;dev&quot;: &quot;node server.js&quot;,</span>
-<span class="line-num">9</span><span class="line-text">    &quot;app&quot;: &quot;node app.js&quot;</span>
-<span class="line-num">10</span><span class="line-text">  },</span>
-<span class="line-num">11</span><span class="line-text">  &quot;keywords&quot;: [</span>
-<span class="line-num">12</span><span class="line-text">    &quot;ieee&quot;,</span>
-<span class="line-num">13</span><span class="line-text">    &quot;institution-management&quot;,</span>
-<span class="line-num">14</span><span class="line-text">    &quot;student-information-system&quot;,</span>
-<span class="line-num">15</span><span class="line-text">    &quot;4-tier-architecture&quot;</span>
-<span class="line-num">16</span><span class="line-text">  ],</span>
-<span class="line-num">17</span><span class="line-text">  &quot;author&quot;: &quot;Antigravity Engineering&quot;,</span>
-<span class="line-num">18</span><span class="line-text">  &quot;license&quot;: &quot;ISC&quot;</span>
-<span class="line-num">19</span><span class="line-text">}</span>
-<span class="line-num">20</span><span class="line-text">&nbsp;</span></code></pre>
+<span class="line-num">9</span><span class="line-text">    &quot;app&quot;: &quot;node app.js&quot;,</span>
+<span class="line-num">10</span><span class="line-text">    &quot;build:pdf&quot;: &quot;node build-code-pdf.js&quot;</span>
+<span class="line-num">11</span><span class="line-text">  },</span>
+<span class="line-num">12</span><span class="line-text">  &quot;keywords&quot;: [</span>
+<span class="line-num">13</span><span class="line-text">    &quot;ieee&quot;,</span>
+<span class="line-num">14</span><span class="line-text">    &quot;institution-management&quot;,</span>
+<span class="line-num">15</span><span class="line-text">    &quot;student-information-system&quot;,</span>
+<span class="line-num">16</span><span class="line-text">    &quot;4-tier-architecture&quot;</span>
+<span class="line-num">17</span><span class="line-text">  ],</span>
+<span class="line-num">18</span><span class="line-text">  &quot;author&quot;: &quot;Antigravity Engineering&quot;,</span>
+<span class="line-num">19</span><span class="line-text">  &quot;license&quot;: &quot;ISC&quot;</span>
+<span class="line-num">20</span><span class="line-text">}</span>
+<span class="line-num">21</span><span class="line-text">&nbsp;</span></code></pre>
     </div>
   
     <div class="file-section" id="file-2">
@@ -4234,6 +4283,524 @@
 <span class="line-num">10</span><span class="line-text">.vscode/</span>
 <span class="line-num">11</span><span class="line-text">.idea/</span>
 <span class="line-num">12</span><span class="line-text">&nbsp;</span></code></pre>
+    </div>
+  
+    <div class="file-section" id="file-9">
+      <div class="file-header">
+        <div class="file-meta">
+          <span class="file-badge file-badge-num">#10</span>
+          <span class="file-badge file-badge-lang">YAML</span>
+          <h2 class="file-title">.github/workflows/pages.yml</h2>
+        </div>
+        <div class="file-stats">
+          <span>38 lines</span>
+          <span>&bull;</span>
+          <span>0.7 KB</span>
+        </div>
+      </div>
+      <div class="file-description">GitHub Actions - Automated GitHub Pages Deployment</div>
+      <pre class="code-block"><code><span class="line-num">1</span><span class="line-text">name: Deploy Campus360 to GitHub Pages</span>
+<span class="line-num">2</span><span class="line-text">&nbsp;</span>
+<span class="line-num">3</span><span class="line-text">on:</span>
+<span class="line-num">4</span><span class="line-text">  push:</span>
+<span class="line-num">5</span><span class="line-text">    branches:</span>
+<span class="line-num">6</span><span class="line-text">      - main</span>
+<span class="line-num">7</span><span class="line-text">      - Muhil</span>
+<span class="line-num">8</span><span class="line-text">      - muhil</span>
+<span class="line-num">9</span><span class="line-text">  workflow_dispatch:</span>
+<span class="line-num">10</span><span class="line-text">&nbsp;</span>
+<span class="line-num">11</span><span class="line-text">permissions:</span>
+<span class="line-num">12</span><span class="line-text">  contents: read</span>
+<span class="line-num">13</span><span class="line-text">  pages: write</span>
+<span class="line-num">14</span><span class="line-text">  id-token: write</span>
+<span class="line-num">15</span><span class="line-text">&nbsp;</span>
+<span class="line-num">16</span><span class="line-text">concurrency:</span>
+<span class="line-num">17</span><span class="line-text">  group: &quot;pages&quot;</span>
+<span class="line-num">18</span><span class="line-text">  cancel-in-progress: false</span>
+<span class="line-num">19</span><span class="line-text">&nbsp;</span>
+<span class="line-num">20</span><span class="line-text">jobs:</span>
+<span class="line-num">21</span><span class="line-text">  deploy:</span>
+<span class="line-num">22</span><span class="line-text">    environment:</span>
+<span class="line-num">23</span><span class="line-text">      name: github-pages</span>
+<span class="line-num">24</span><span class="line-text">      url: ${{ steps.deployment.outputs.page_url }}</span>
+<span class="line-num">25</span><span class="line-text">    runs-on: ubuntu-latest</span>
+<span class="line-num">26</span><span class="line-text">    steps:</span>
+<span class="line-num">27</span><span class="line-text">      - name: Checkout</span>
+<span class="line-num">28</span><span class="line-text">        uses: actions/checkout@v4</span>
+<span class="line-num">29</span><span class="line-text">      - name: Setup Pages</span>
+<span class="line-num">30</span><span class="line-text">        uses: actions/configure-pages@v5</span>
+<span class="line-num">31</span><span class="line-text">      - name: Upload artifact</span>
+<span class="line-num">32</span><span class="line-text">        uses: actions/upload-pages-artifact@v3</span>
+<span class="line-num">33</span><span class="line-text">        with:</span>
+<span class="line-num">34</span><span class="line-text">          path: &#039;.&#039;</span>
+<span class="line-num">35</span><span class="line-text">      - name: Deploy to GitHub Pages</span>
+<span class="line-num">36</span><span class="line-text">        id: deployment</span>
+<span class="line-num">37</span><span class="line-text">        uses: actions/deploy-pages@v4</span>
+<span class="line-num">38</span><span class="line-text">&nbsp;</span></code></pre>
+    </div>
+  
+    <div class="file-section" id="file-10">
+      <div class="file-header">
+        <div class="file-meta">
+          <span class="file-badge file-badge-num">#11</span>
+          <span class="file-badge file-badge-lang">JAVASCRIPT</span>
+          <h2 class="file-title">build-code-pdf.js</h2>
+        </div>
+        <div class="file-stats">
+          <span>448 lines</span>
+          <span>&bull;</span>
+          <span>11.6 KB</span>
+        </div>
+      </div>
+      <div class="file-description">Automated Full-Codebase PDF Documentation Generator</div>
+      <pre class="code-block"><code><span class="line-num">1</span><span class="line-text">const fs = require(&#039;fs&#039;);</span>
+<span class="line-num">2</span><span class="line-text">const path = require(&#039;path&#039;);</span>
+<span class="line-num">3</span><span class="line-text">const { execSync } = require(&#039;child_process&#039;);</span>
+<span class="line-num">4</span><span class="line-text">&nbsp;</span>
+<span class="line-num">5</span><span class="line-text">const projectDir = __dirname;</span>
+<span class="line-num">6</span><span class="line-text">const outputFileHtml = path.join(projectDir, &#039;Campus360_Source_Code.html&#039;);</span>
+<span class="line-num">7</span><span class="line-text">const outputFilePdf = path.join(projectDir, &#039;Campus360_Source_Code.pdf&#039;);</span>
+<span class="line-num">8</span><span class="line-text">&nbsp;</span>
+<span class="line-num">9</span><span class="line-text">const filesToInclude = [</span>
+<span class="line-num">10</span><span class="line-text">  { name: &#039;README.md&#039;, lang: &#039;markdown&#039;, desc: &#039;Project Overview, IEEE Research Mapping &amp; System Architecture&#039; },</span>
+<span class="line-num">11</span><span class="line-text">  { name: &#039;package.json&#039;, lang: &#039;json&#039;, desc: &#039;Project Metadata, Dependencies &amp; NPM Scripts&#039; },</span>
+<span class="line-num">12</span><span class="line-text">  { name: &#039;server.js&#039;, lang: &#039;javascript&#039;, desc: &#039;Zero-Dependency HTTP Server &amp; Port Failover&#039; },</span>
+<span class="line-num">13</span><span class="line-text">  { name: &#039;index.html&#039;, lang: &#039;html&#039;, desc: &#039;Web Display Layer (Tier 1) - Multi-Role Dashboard HTML&#039; },</span>
+<span class="line-num">14</span><span class="line-text">  { name: &#039;styles.css&#039;, lang: &#039;css&#039;, desc: &#039;Styling &amp; Visual Design System (CSS3 Variables &amp; Responsive Layout)&#039; },</span>
+<span class="line-num">15</span><span class="line-text">  { name: &#039;data.js&#039;, lang: &#039;javascript&#039;, desc: &#039;Data Layer (Tier 4) - Seed Data &amp; Entity Schemas&#039; },</span>
+<span class="line-num">16</span><span class="line-text">  { name: &#039;app.js&#039;, lang: &#039;javascript&#039;, desc: &#039;Business Logic Layer (Tier 2) &amp; Data Access Layer (Tier 3)&#039; },</span>
+<span class="line-num">17</span><span class="line-text">  { name: &#039;start.bat&#039;, lang: &#039;bat&#039;, desc: &#039;Windows One-Click Startup Script&#039; },</span>
+<span class="line-num">18</span><span class="line-text">  { name: &#039;.gitignore&#039;, lang: &#039;plaintext&#039;, desc: &#039;Git Ignored Files Specification&#039; },</span>
+<span class="line-num">19</span><span class="line-text">  { name: &#039;.github/workflows/pages.yml&#039;, lang: &#039;yaml&#039;, desc: &#039;GitHub Actions - Automated GitHub Pages Deployment&#039; },</span>
+<span class="line-num">20</span><span class="line-text">  { name: &#039;build-code-pdf.js&#039;, lang: &#039;javascript&#039;, desc: &#039;Automated Full-Codebase PDF Documentation Generator&#039; }</span>
+<span class="line-num">21</span><span class="line-text">];</span>
+<span class="line-num">22</span><span class="line-text">&nbsp;</span>
+<span class="line-num">23</span><span class="line-text">function escapeHtml(text) {</span>
+<span class="line-num">24</span><span class="line-text">  return text</span>
+<span class="line-num">25</span><span class="line-text">    .replace(/&amp;/g, &#039;&amp;amp;&#039;)</span>
+<span class="line-num">26</span><span class="line-text">    .replace(/&lt;/g, &#039;&amp;lt;&#039;)</span>
+<span class="line-num">27</span><span class="line-text">    .replace(/&gt;/g, &#039;&amp;gt;&#039;)</span>
+<span class="line-num">28</span><span class="line-text">    .replace(/&quot;/g, &#039;&amp;quot;&#039;)</span>
+<span class="line-num">29</span><span class="line-text">    .replace(/&#039;/g, &#039;&amp;#039;&#039;);</span>
+<span class="line-num">30</span><span class="line-text">}</span>
+<span class="line-num">31</span><span class="line-text">&nbsp;</span>
+<span class="line-num">32</span><span class="line-text">let tocItems = &#039;&#039;;</span>
+<span class="line-num">33</span><span class="line-text">let filesContentHtml = &#039;&#039;;</span>
+<span class="line-num">34</span><span class="line-text">let totalLines = 0;</span>
+<span class="line-num">35</span><span class="line-text">&nbsp;</span>
+<span class="line-num">36</span><span class="line-text">filesToInclude.forEach((f, idx) =&gt; {</span>
+<span class="line-num">37</span><span class="line-text">  const filePath = path.join(projectDir, f.name);</span>
+<span class="line-num">38</span><span class="line-text">  if (!fs.existsSync(filePath)) return;</span>
+<span class="line-num">39</span><span class="line-text">&nbsp;</span>
+<span class="line-num">40</span><span class="line-text">  const raw = fs.readFileSync(filePath, &#039;utf8&#039;);</span>
+<span class="line-num">41</span><span class="line-text">  const lines = raw.split(/\r?\n/);</span>
+<span class="line-num">42</span><span class="line-text">  totalLines += lines.length;</span>
+<span class="line-num">43</span><span class="line-text">&nbsp;</span>
+<span class="line-num">44</span><span class="line-text">  tocItems += `</span>
+<span class="line-num">45</span><span class="line-text">    &lt;tr&gt;</span>
+<span class="line-num">46</span><span class="line-text">      &lt;td class=&quot;toc-num&quot;&gt;${idx + 1}&lt;/td&gt;</span>
+<span class="line-num">47</span><span class="line-text">      &lt;td class=&quot;toc-file&quot;&gt;&lt;a href=&quot;#file-${idx}&quot;&gt;${f.name}&lt;/a&gt;&lt;/td&gt;</span>
+<span class="line-num">48</span><span class="line-text">      &lt;td class=&quot;toc-desc&quot;&gt;${f.desc}&lt;/td&gt;</span>
+<span class="line-num">49</span><span class="line-text">      &lt;td class=&quot;toc-lang&quot;&gt;${f.lang.toUpperCase()}&lt;/td&gt;</span>
+<span class="line-num">50</span><span class="line-text">      &lt;td class=&quot;toc-lines&quot;&gt;${lines.length.toLocaleString()} lines&lt;/td&gt;</span>
+<span class="line-num">51</span><span class="line-text">    &lt;/tr&gt;</span>
+<span class="line-num">52</span><span class="line-text">  `;</span>
+<span class="line-num">53</span><span class="line-text">&nbsp;</span>
+<span class="line-num">54</span><span class="line-text">  const numberedCode = lines</span>
+<span class="line-num">55</span><span class="line-text">    .map((line, lIdx) =&gt; `&lt;span class=&quot;line-num&quot;&gt;${lIdx + 1}&lt;/span&gt;&lt;span class=&quot;line-text&quot;&gt;${escapeHtml(line) || &#039;&amp;nbsp;&#039;}&lt;/span&gt;`)</span>
+<span class="line-num">56</span><span class="line-text">    .join(&#039;\n&#039;);</span>
+<span class="line-num">57</span><span class="line-text">&nbsp;</span>
+<span class="line-num">58</span><span class="line-text">  filesContentHtml += `</span>
+<span class="line-num">59</span><span class="line-text">    &lt;div class=&quot;file-section&quot; id=&quot;file-${idx}&quot;&gt;</span>
+<span class="line-num">60</span><span class="line-text">      &lt;div class=&quot;file-header&quot;&gt;</span>
+<span class="line-num">61</span><span class="line-text">        &lt;div class=&quot;file-meta&quot;&gt;</span>
+<span class="line-num">62</span><span class="line-text">          &lt;span class=&quot;file-badge file-badge-num&quot;&gt;#${idx + 1}&lt;/span&gt;</span>
+<span class="line-num">63</span><span class="line-text">          &lt;span class=&quot;file-badge file-badge-lang&quot;&gt;${f.lang.toUpperCase()}&lt;/span&gt;</span>
+<span class="line-num">64</span><span class="line-text">          &lt;h2 class=&quot;file-title&quot;&gt;${f.name}&lt;/h2&gt;</span>
+<span class="line-num">65</span><span class="line-text">        &lt;/div&gt;</span>
+<span class="line-num">66</span><span class="line-text">        &lt;div class=&quot;file-stats&quot;&gt;</span>
+<span class="line-num">67</span><span class="line-text">          &lt;span&gt;${lines.length.toLocaleString()} lines&lt;/span&gt;</span>
+<span class="line-num">68</span><span class="line-text">          &lt;span&gt;&amp;bull;&lt;/span&gt;</span>
+<span class="line-num">69</span><span class="line-text">          &lt;span&gt;${(raw.length / 1024).toFixed(1)} KB&lt;/span&gt;</span>
+<span class="line-num">70</span><span class="line-text">        &lt;/div&gt;</span>
+<span class="line-num">71</span><span class="line-text">      &lt;/div&gt;</span>
+<span class="line-num">72</span><span class="line-text">      &lt;div class=&quot;file-description&quot;&gt;${f.desc}&lt;/div&gt;</span>
+<span class="line-num">73</span><span class="line-text">      &lt;pre class=&quot;code-block&quot;&gt;&lt;code&gt;${numberedCode}&lt;/code&gt;&lt;/pre&gt;</span>
+<span class="line-num">74</span><span class="line-text">    &lt;/div&gt;</span>
+<span class="line-num">75</span><span class="line-text">  `;</span>
+<span class="line-num">76</span><span class="line-text">});</span>
+<span class="line-num">77</span><span class="line-text">&nbsp;</span>
+<span class="line-num">78</span><span class="line-text">const fullHtml = `&lt;!DOCTYPE html&gt;</span>
+<span class="line-num">79</span><span class="line-text">&lt;html lang=&quot;en&quot;&gt;</span>
+<span class="line-num">80</span><span class="line-text">&lt;head&gt;</span>
+<span class="line-num">81</span><span class="line-text">&lt;meta charset=&quot;UTF-8&quot;&gt;</span>
+<span class="line-num">82</span><span class="line-text">&lt;title&gt;Campus360 — Full Source Code Documentation&lt;/title&gt;</span>
+<span class="line-num">83</span><span class="line-text">&lt;style&gt;</span>
+<span class="line-num">84</span><span class="line-text">  @page {</span>
+<span class="line-num">85</span><span class="line-text">    size: A4;</span>
+<span class="line-num">86</span><span class="line-text">    margin: 14mm 12mm 14mm 12mm;</span>
+<span class="line-num">87</span><span class="line-text">    @bottom-right {</span>
+<span class="line-num">88</span><span class="line-text">      content: counter(page);</span>
+<span class="line-num">89</span><span class="line-text">    }</span>
+<span class="line-num">90</span><span class="line-text">  }</span>
+<span class="line-num">91</span><span class="line-text">&nbsp;</span>
+<span class="line-num">92</span><span class="line-text">  * {</span>
+<span class="line-num">93</span><span class="line-text">    box-sizing: border-box;</span>
+<span class="line-num">94</span><span class="line-text">  }</span>
+<span class="line-num">95</span><span class="line-text">&nbsp;</span>
+<span class="line-num">96</span><span class="line-text">  body {</span>
+<span class="line-num">97</span><span class="line-text">    font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, sans-serif;</span>
+<span class="line-num">98</span><span class="line-text">    color: #1e293b;</span>
+<span class="line-num">99</span><span class="line-text">    background: #ffffff;</span>
+<span class="line-num">100</span><span class="line-text">    margin: 0;</span>
+<span class="line-num">101</span><span class="line-text">    padding: 0;</span>
+<span class="line-num">102</span><span class="line-text">    font-size: 11pt;</span>
+<span class="line-num">103</span><span class="line-text">    line-height: 1.5;</span>
+<span class="line-num">104</span><span class="line-text">  }</span>
+<span class="line-num">105</span><span class="line-text">&nbsp;</span>
+<span class="line-num">106</span><span class="line-text">  /* Cover Page */</span>
+<span class="line-num">107</span><span class="line-text">  .cover-page {</span>
+<span class="line-num">108</span><span class="line-text">    padding: 60px 30px;</span>
+<span class="line-num">109</span><span class="line-text">    min-height: 90vh;</span>
+<span class="line-num">110</span><span class="line-text">    display: flex;</span>
+<span class="line-num">111</span><span class="line-text">    flex-direction: column;</span>
+<span class="line-num">112</span><span class="line-text">    justify-content: space-between;</span>
+<span class="line-num">113</span><span class="line-text">    page-break-after: always;</span>
+<span class="line-num">114</span><span class="line-text">  }</span>
+<span class="line-num">115</span><span class="line-text">&nbsp;</span>
+<span class="line-num">116</span><span class="line-text">  .cover-badge {</span>
+<span class="line-num">117</span><span class="line-text">    display: inline-block;</span>
+<span class="line-num">118</span><span class="line-text">    background: #eff6ff;</span>
+<span class="line-num">119</span><span class="line-text">    color: #2563eb;</span>
+<span class="line-num">120</span><span class="line-text">    border: 1px solid #bfdbfe;</span>
+<span class="line-num">121</span><span class="line-text">    padding: 6px 14px;</span>
+<span class="line-num">122</span><span class="line-text">    border-radius: 9999px;</span>
+<span class="line-num">123</span><span class="line-text">    font-size: 10pt;</span>
+<span class="line-num">124</span><span class="line-text">    font-weight: 600;</span>
+<span class="line-num">125</span><span class="line-text">    letter-spacing: 0.05em;</span>
+<span class="line-num">126</span><span class="line-text">    text-transform: uppercase;</span>
+<span class="line-num">127</span><span class="line-text">    margin-bottom: 24px;</span>
+<span class="line-num">128</span><span class="line-text">  }</span>
+<span class="line-num">129</span><span class="line-text">&nbsp;</span>
+<span class="line-num">130</span><span class="line-text">  .cover-title {</span>
+<span class="line-num">131</span><span class="line-text">    font-size: 30pt;</span>
+<span class="line-num">132</span><span class="line-text">    font-weight: 800;</span>
+<span class="line-num">133</span><span class="line-text">    color: #0f172a;</span>
+<span class="line-num">134</span><span class="line-text">    line-height: 1.15;</span>
+<span class="line-num">135</span><span class="line-text">    margin: 0 0 16px 0;</span>
+<span class="line-num">136</span><span class="line-text">  }</span>
+<span class="line-num">137</span><span class="line-text">&nbsp;</span>
+<span class="line-num">138</span><span class="line-text">  .cover-subtitle {</span>
+<span class="line-num">139</span><span class="line-text">    font-size: 14pt;</span>
+<span class="line-num">140</span><span class="line-text">    color: #475569;</span>
+<span class="line-num">141</span><span class="line-text">    margin: 0 0 32px 0;</span>
+<span class="line-num">142</span><span class="line-text">    line-height: 1.4;</span>
+<span class="line-num">143</span><span class="line-text">  }</span>
+<span class="line-num">144</span><span class="line-text">&nbsp;</span>
+<span class="line-num">145</span><span class="line-text">  .cover-card {</span>
+<span class="line-num">146</span><span class="line-text">    background: #f8fafc;</span>
+<span class="line-num">147</span><span class="line-text">    border: 1px solid #e2e8f0;</span>
+<span class="line-num">148</span><span class="line-text">    border-radius: 8px;</span>
+<span class="line-num">149</span><span class="line-text">    padding: 20px 24px;</span>
+<span class="line-num">150</span><span class="line-text">    margin-bottom: 30px;</span>
+<span class="line-num">151</span><span class="line-text">  }</span>
+<span class="line-num">152</span><span class="line-text">&nbsp;</span>
+<span class="line-num">153</span><span class="line-text">  .cover-card h3 {</span>
+<span class="line-num">154</span><span class="line-text">    margin: 0 0 12px 0;</span>
+<span class="line-num">155</span><span class="line-text">    font-size: 12pt;</span>
+<span class="line-num">156</span><span class="line-text">    color: #1e293b;</span>
+<span class="line-num">157</span><span class="line-text">    font-weight: 700;</span>
+<span class="line-num">158</span><span class="line-text">  }</span>
+<span class="line-num">159</span><span class="line-text">&nbsp;</span>
+<span class="line-num">160</span><span class="line-text">  .cover-card ul {</span>
+<span class="line-num">161</span><span class="line-text">    margin: 0;</span>
+<span class="line-num">162</span><span class="line-text">    padding-left: 20px;</span>
+<span class="line-num">163</span><span class="line-text">    color: #475569;</span>
+<span class="line-num">164</span><span class="line-text">    font-size: 10pt;</span>
+<span class="line-num">165</span><span class="line-text">    line-height: 1.6;</span>
+<span class="line-num">166</span><span class="line-text">  }</span>
+<span class="line-num">167</span><span class="line-text">&nbsp;</span>
+<span class="line-num">168</span><span class="line-text">  .cover-meta-grid {</span>
+<span class="line-num">169</span><span class="line-text">    display: grid;</span>
+<span class="line-num">170</span><span class="line-text">    grid-template-columns: repeat(2, 1fr);</span>
+<span class="line-num">171</span><span class="line-text">    gap: 16px;</span>
+<span class="line-num">172</span><span class="line-text">    margin-top: 20px;</span>
+<span class="line-num">173</span><span class="line-text">  }</span>
+<span class="line-num">174</span><span class="line-text">&nbsp;</span>
+<span class="line-num">175</span><span class="line-text">  .cover-meta-item {</span>
+<span class="line-num">176</span><span class="line-text">    background: #f1f5f9;</span>
+<span class="line-num">177</span><span class="line-text">    border-radius: 6px;</span>
+<span class="line-num">178</span><span class="line-text">    padding: 12px 16px;</span>
+<span class="line-num">179</span><span class="line-text">  }</span>
+<span class="line-num">180</span><span class="line-text">&nbsp;</span>
+<span class="line-num">181</span><span class="line-text">  .cover-meta-label {</span>
+<span class="line-num">182</span><span class="line-text">    font-size: 8pt;</span>
+<span class="line-num">183</span><span class="line-text">    text-transform: uppercase;</span>
+<span class="line-num">184</span><span class="line-text">    color: #64748b;</span>
+<span class="line-num">185</span><span class="line-text">    font-weight: 600;</span>
+<span class="line-num">186</span><span class="line-text">    letter-spacing: 0.05em;</span>
+<span class="line-num">187</span><span class="line-text">  }</span>
+<span class="line-num">188</span><span class="line-text">&nbsp;</span>
+<span class="line-num">189</span><span class="line-text">  .cover-meta-val {</span>
+<span class="line-num">190</span><span class="line-text">    font-size: 11pt;</span>
+<span class="line-num">191</span><span class="line-text">    font-weight: 600;</span>
+<span class="line-num">192</span><span class="line-text">    color: #0f172a;</span>
+<span class="line-num">193</span><span class="line-text">    margin-top: 4px;</span>
+<span class="line-num">194</span><span class="line-text">    word-break: break-all;</span>
+<span class="line-num">195</span><span class="line-text">  }</span>
+<span class="line-num">196</span><span class="line-text">&nbsp;</span>
+<span class="line-num">197</span><span class="line-text">  /* Table of Contents */</span>
+<span class="line-num">198</span><span class="line-text">  .toc-section {</span>
+<span class="line-num">199</span><span class="line-text">    page-break-after: always;</span>
+<span class="line-num">200</span><span class="line-text">    padding-top: 20px;</span>
+<span class="line-num">201</span><span class="line-text">  }</span>
+<span class="line-num">202</span><span class="line-text">&nbsp;</span>
+<span class="line-num">203</span><span class="line-text">  .toc-title {</span>
+<span class="line-num">204</span><span class="line-text">    font-size: 20pt;</span>
+<span class="line-num">205</span><span class="line-text">    font-weight: 800;</span>
+<span class="line-num">206</span><span class="line-text">    color: #0f172a;</span>
+<span class="line-num">207</span><span class="line-text">    margin-bottom: 8px;</span>
+<span class="line-num">208</span><span class="line-text">  }</span>
+<span class="line-num">209</span><span class="line-text">&nbsp;</span>
+<span class="line-num">210</span><span class="line-text">  .toc-subtitle {</span>
+<span class="line-num">211</span><span class="line-text">    color: #64748b;</span>
+<span class="line-num">212</span><span class="line-text">    font-size: 10pt;</span>
+<span class="line-num">213</span><span class="line-text">    margin-bottom: 24px;</span>
+<span class="line-num">214</span><span class="line-text">  }</span>
+<span class="line-num">215</span><span class="line-text">&nbsp;</span>
+<span class="line-num">216</span><span class="line-text">  table.toc-table {</span>
+<span class="line-num">217</span><span class="line-text">    width: 100%;</span>
+<span class="line-num">218</span><span class="line-text">    border-collapse: collapse;</span>
+<span class="line-num">219</span><span class="line-text">    font-size: 9.5pt;</span>
+<span class="line-num">220</span><span class="line-text">  }</span>
+<span class="line-num">221</span><span class="line-text">&nbsp;</span>
+<span class="line-num">222</span><span class="line-text">  table.toc-table th {</span>
+<span class="line-num">223</span><span class="line-text">    text-align: left;</span>
+<span class="line-num">224</span><span class="line-text">    padding: 10px 12px;</span>
+<span class="line-num">225</span><span class="line-text">    background: #f1f5f9;</span>
+<span class="line-num">226</span><span class="line-text">    border-bottom: 2px solid #cbd5e1;</span>
+<span class="line-num">227</span><span class="line-text">    color: #334155;</span>
+<span class="line-num">228</span><span class="line-text">    font-weight: 700;</span>
+<span class="line-num">229</span><span class="line-text">    text-transform: uppercase;</span>
+<span class="line-num">230</span><span class="line-text">    font-size: 8pt;</span>
+<span class="line-num">231</span><span class="line-text">    letter-spacing: 0.05em;</span>
+<span class="line-num">232</span><span class="line-text">  }</span>
+<span class="line-num">233</span><span class="line-text">&nbsp;</span>
+<span class="line-num">234</span><span class="line-text">  table.toc-table td {</span>
+<span class="line-num">235</span><span class="line-text">    padding: 10px 12px;</span>
+<span class="line-num">236</span><span class="line-text">    border-bottom: 1px solid #e2e8f0;</span>
+<span class="line-num">237</span><span class="line-text">    vertical-align: top;</span>
+<span class="line-num">238</span><span class="line-text">  }</span>
+<span class="line-num">239</span><span class="line-text">&nbsp;</span>
+<span class="line-num">240</span><span class="line-text">  .toc-num {</span>
+<span class="line-num">241</span><span class="line-text">    font-weight: 700;</span>
+<span class="line-num">242</span><span class="line-text">    color: #64748b;</span>
+<span class="line-num">243</span><span class="line-text">    width: 30px;</span>
+<span class="line-num">244</span><span class="line-text">  }</span>
+<span class="line-num">245</span><span class="line-text">&nbsp;</span>
+<span class="line-num">246</span><span class="line-text">  .toc-file a {</span>
+<span class="line-num">247</span><span class="line-text">    color: #2563eb;</span>
+<span class="line-num">248</span><span class="line-text">    text-decoration: none;</span>
+<span class="line-num">249</span><span class="line-text">    font-weight: 600;</span>
+<span class="line-num">250</span><span class="line-text">    font-family: &quot;Consolas&quot;, monospace;</span>
+<span class="line-num">251</span><span class="line-text">  }</span>
+<span class="line-num">252</span><span class="line-text">&nbsp;</span>
+<span class="line-num">253</span><span class="line-text">  .toc-desc {</span>
+<span class="line-num">254</span><span class="line-text">    color: #475569;</span>
+<span class="line-num">255</span><span class="line-text">  }</span>
+<span class="line-num">256</span><span class="line-text">&nbsp;</span>
+<span class="line-num">257</span><span class="line-text">  .toc-lang {</span>
+<span class="line-num">258</span><span class="line-text">    font-weight: 600;</span>
+<span class="line-num">259</span><span class="line-text">    color: #64748b;</span>
+<span class="line-num">260</span><span class="line-text">    font-size: 8pt;</span>
+<span class="line-num">261</span><span class="line-text">  }</span>
+<span class="line-num">262</span><span class="line-text">&nbsp;</span>
+<span class="line-num">263</span><span class="line-text">  .toc-lines {</span>
+<span class="line-num">264</span><span class="line-text">    text-align: right;</span>
+<span class="line-num">265</span><span class="line-text">    font-weight: 600;</span>
+<span class="line-num">266</span><span class="line-text">    color: #334155;</span>
+<span class="line-num">267</span><span class="line-text">    font-family: &quot;Consolas&quot;, monospace;</span>
+<span class="line-num">268</span><span class="line-text">  }</span>
+<span class="line-num">269</span><span class="line-text">&nbsp;</span>
+<span class="line-num">270</span><span class="line-text">  /* File Sections */</span>
+<span class="line-num">271</span><span class="line-text">  .file-section {</span>
+<span class="line-num">272</span><span class="line-text">    page-break-before: always;</span>
+<span class="line-num">273</span><span class="line-text">    margin-top: 10px;</span>
+<span class="line-num">274</span><span class="line-text">  }</span>
+<span class="line-num">275</span><span class="line-text">&nbsp;</span>
+<span class="line-num">276</span><span class="line-text">  .file-header {</span>
+<span class="line-num">277</span><span class="line-text">    display: flex;</span>
+<span class="line-num">278</span><span class="line-text">    justify-content: space-between;</span>
+<span class="line-num">279</span><span class="line-text">    align-items: center;</span>
+<span class="line-num">280</span><span class="line-text">    border-bottom: 2px solid #e2e8f0;</span>
+<span class="line-num">281</span><span class="line-text">    padding-bottom: 10px;</span>
+<span class="line-num">282</span><span class="line-text">    margin-bottom: 8px;</span>
+<span class="line-num">283</span><span class="line-text">  }</span>
+<span class="line-num">284</span><span class="line-text">&nbsp;</span>
+<span class="line-num">285</span><span class="line-text">  .file-meta {</span>
+<span class="line-num">286</span><span class="line-text">    display: flex;</span>
+<span class="line-num">287</span><span class="line-text">    align-items: center;</span>
+<span class="line-num">288</span><span class="line-text">    gap: 10px;</span>
+<span class="line-num">289</span><span class="line-text">  }</span>
+<span class="line-num">290</span><span class="line-text">&nbsp;</span>
+<span class="line-num">291</span><span class="line-text">  .file-badge {</span>
+<span class="line-num">292</span><span class="line-text">    padding: 4px 8px;</span>
+<span class="line-num">293</span><span class="line-text">    border-radius: 4px;</span>
+<span class="line-num">294</span><span class="line-text">    font-size: 7.5pt;</span>
+<span class="line-num">295</span><span class="line-text">    font-weight: 700;</span>
+<span class="line-num">296</span><span class="line-text">    text-transform: uppercase;</span>
+<span class="line-num">297</span><span class="line-text">  }</span>
+<span class="line-num">298</span><span class="line-text">&nbsp;</span>
+<span class="line-num">299</span><span class="line-text">  .file-badge-num {</span>
+<span class="line-num">300</span><span class="line-text">    background: #0f172a;</span>
+<span class="line-num">301</span><span class="line-text">    color: #ffffff;</span>
+<span class="line-num">302</span><span class="line-text">  }</span>
+<span class="line-num">303</span><span class="line-text">&nbsp;</span>
+<span class="line-num">304</span><span class="line-text">  .file-badge-lang {</span>
+<span class="line-num">305</span><span class="line-text">    background: #dbeafe;</span>
+<span class="line-num">306</span><span class="line-text">    color: #1e40af;</span>
+<span class="line-num">307</span><span class="line-text">  }</span>
+<span class="line-num">308</span><span class="line-text">&nbsp;</span>
+<span class="line-num">309</span><span class="line-text">  .file-title {</span>
+<span class="line-num">310</span><span class="line-text">    margin: 0;</span>
+<span class="line-num">311</span><span class="line-text">    font-size: 15pt;</span>
+<span class="line-num">312</span><span class="line-text">    font-family: &quot;Consolas&quot;, &quot;Courier New&quot;, monospace;</span>
+<span class="line-num">313</span><span class="line-text">    color: #0f172a;</span>
+<span class="line-num">314</span><span class="line-text">  }</span>
+<span class="line-num">315</span><span class="line-text">&nbsp;</span>
+<span class="line-num">316</span><span class="line-text">  .file-stats {</span>
+<span class="line-num">317</span><span class="line-text">    font-size: 9pt;</span>
+<span class="line-num">318</span><span class="line-text">    color: #64748b;</span>
+<span class="line-num">319</span><span class="line-text">    display: flex;</span>
+<span class="line-num">320</span><span class="line-text">    gap: 8px;</span>
+<span class="line-num">321</span><span class="line-text">    font-family: &quot;Consolas&quot;, monospace;</span>
+<span class="line-num">322</span><span class="line-text">  }</span>
+<span class="line-num">323</span><span class="line-text">&nbsp;</span>
+<span class="line-num">324</span><span class="line-text">  .file-description {</span>
+<span class="line-num">325</span><span class="line-text">    font-size: 9.5pt;</span>
+<span class="line-num">326</span><span class="line-text">    color: #475569;</span>
+<span class="line-num">327</span><span class="line-text">    margin-bottom: 14px;</span>
+<span class="line-num">328</span><span class="line-text">    font-style: italic;</span>
+<span class="line-num">329</span><span class="line-text">  }</span>
+<span class="line-num">330</span><span class="line-text">&nbsp;</span>
+<span class="line-num">331</span><span class="line-text">  /* Code Blocks */</span>
+<span class="line-num">332</span><span class="line-text">  pre.code-block {</span>
+<span class="line-num">333</span><span class="line-text">    margin: 0;</span>
+<span class="line-num">334</span><span class="line-text">    padding: 12px;</span>
+<span class="line-num">335</span><span class="line-text">    background: #f8fafc;</span>
+<span class="line-num">336</span><span class="line-text">    border: 1px solid #e2e8f0;</span>
+<span class="line-num">337</span><span class="line-text">    border-radius: 6px;</span>
+<span class="line-num">338</span><span class="line-text">    font-family: &quot;Consolas&quot;, &quot;Courier New&quot;, monospace;</span>
+<span class="line-num">339</span><span class="line-text">    font-size: 8pt;</span>
+<span class="line-num">340</span><span class="line-text">    line-height: 1.45;</span>
+<span class="line-num">341</span><span class="line-text">    color: #0f172a;</span>
+<span class="line-num">342</span><span class="line-text">    white-space: pre-wrap;</span>
+<span class="line-num">343</span><span class="line-text">    word-break: break-all;</span>
+<span class="line-num">344</span><span class="line-text">    overflow: hidden;</span>
+<span class="line-num">345</span><span class="line-text">  }</span>
+<span class="line-num">346</span><span class="line-text">&nbsp;</span>
+<span class="line-num">347</span><span class="line-text">  .line-num {</span>
+<span class="line-num">348</span><span class="line-text">    display: inline-block;</span>
+<span class="line-num">349</span><span class="line-text">    width: 42px;</span>
+<span class="line-num">350</span><span class="line-text">    color: #94a3b8;</span>
+<span class="line-num">351</span><span class="line-text">    user-select: none;</span>
+<span class="line-num">352</span><span class="line-text">    text-align: right;</span>
+<span class="line-num">353</span><span class="line-text">    margin-right: 12px;</span>
+<span class="line-num">354</span><span class="line-text">    border-right: 1px solid #e2e8f0;</span>
+<span class="line-num">355</span><span class="line-text">    padding-right: 8px;</span>
+<span class="line-num">356</span><span class="line-text">    font-size: 7.5pt;</span>
+<span class="line-num">357</span><span class="line-text">  }</span>
+<span class="line-num">358</span><span class="line-text">&nbsp;</span>
+<span class="line-num">359</span><span class="line-text">  .line-text {</span>
+<span class="line-num">360</span><span class="line-text">    display: inline;</span>
+<span class="line-num">361</span><span class="line-text">  }</span>
+<span class="line-num">362</span><span class="line-text">&lt;/style&gt;</span>
+<span class="line-num">363</span><span class="line-text">&lt;/head&gt;</span>
+<span class="line-num">364</span><span class="line-text">&lt;body&gt;</span>
+<span class="line-num">365</span><span class="line-text">&nbsp;</span>
+<span class="line-num">366</span><span class="line-text">  &lt;!-- Cover Page --&gt;</span>
+<span class="line-num">367</span><span class="line-text">  &lt;div class=&quot;cover-page&quot;&gt;</span>
+<span class="line-num">368</span><span class="line-text">    &lt;div&gt;</span>
+<span class="line-num">369</span><span class="line-text">      &lt;div class=&quot;cover-badge&quot;&gt;Source Code Documentation&lt;/div&gt;</span>
+<span class="line-num">370</span><span class="line-text">      &lt;h1 class=&quot;cover-title&quot;&gt;Campus360&lt;/h1&gt;</span>
+<span class="line-num">371</span><span class="line-text">      &lt;div class=&quot;cover-subtitle&quot;&gt;Educational Institution Management Information System (IMS) — Proof of Concept&lt;/div&gt;</span>
+<span class="line-num">372</span><span class="line-text">&nbsp;</span>
+<span class="line-num">373</span><span class="line-text">      &lt;div class=&quot;cover-card&quot;&gt;</span>
+<span class="line-num">374</span><span class="line-text">        &lt;h3&gt;🏛️ IEEE Research Paper Specifications Implemented&lt;/h3&gt;</span>
+<span class="line-num">375</span><span class="line-text">        &lt;ul&gt;</span>
+<span class="line-num">376</span><span class="line-text">          &lt;li&gt;&lt;strong&gt;IEEE 10058674&lt;/strong&gt;: &lt;em&gt;&quot;Institution Management System: Student Module&quot;&lt;/em&gt; — Record consolidation, dossier modal, promotion engine, placement &amp; internship directorate.&lt;/li&gt;</span>
+<span class="line-num">377</span><span class="line-text">          &lt;li&gt;&lt;strong&gt;IEEE 10516390&lt;/strong&gt;: &lt;em&gt;&quot;Educational Institution Management Information System&quot;&lt;/em&gt; — Centralized multi-role web platform (Admin, Faculty, Student) with institutional broadcast engine.&lt;/li&gt;</span>
+<span class="line-num">378</span><span class="line-text">          &lt;li&gt;&lt;strong&gt;IEEE 7384005&lt;/strong&gt;: &lt;em&gt;&quot;College Student Management System Design Using Computer Aided System&quot;&lt;/em&gt; — 4-Tier Computer-Aided Architecture &amp; Relational Entity-Relationship Model.&lt;/li&gt;</span>
+<span class="line-num">379</span><span class="line-text">        &lt;/ul&gt;</span>
+<span class="line-num">380</span><span class="line-text">      &lt;/div&gt;</span>
+<span class="line-num">381</span><span class="line-text">    &lt;/div&gt;</span>
+<span class="line-num">382</span><span class="line-text">&nbsp;</span>
+<span class="line-num">383</span><span class="line-text">    &lt;div&gt;</span>
+<span class="line-num">384</span><span class="line-text">      &lt;div class=&quot;cover-meta-grid&quot;&gt;</span>
+<span class="line-num">385</span><span class="line-text">        &lt;div class=&quot;cover-meta-item&quot;&gt;</span>
+<span class="line-num">386</span><span class="line-text">          &lt;div class=&quot;cover-meta-label&quot;&gt;GitHub Repository&lt;/div&gt;</span>
+<span class="line-num">387</span><span class="line-text">          &lt;div class=&quot;cover-meta-val&quot;&gt;HaydenVictor420/Campus360&lt;/div&gt;</span>
+<span class="line-num">388</span><span class="line-text">        &lt;/div&gt;</span>
+<span class="line-num">389</span><span class="line-text">        &lt;div class=&quot;cover-meta-item&quot;&gt;</span>
+<span class="line-num">390</span><span class="line-text">          &lt;div class=&quot;cover-meta-label&quot;&gt;Git Branch&lt;/div&gt;</span>
+<span class="line-num">391</span><span class="line-text">          &lt;div class=&quot;cover-meta-val&quot;&gt;muhil&lt;/div&gt;</span>
+<span class="line-num">392</span><span class="line-text">        &lt;/div&gt;</span>
+<span class="line-num">393</span><span class="line-text">        &lt;div class=&quot;cover-meta-item&quot;&gt;</span>
+<span class="line-num">394</span><span class="line-text">          &lt;div class=&quot;cover-meta-label&quot;&gt;Local Server URL&lt;/div&gt;</span>
+<span class="line-num">395</span><span class="line-text">          &lt;div class=&quot;cover-meta-val&quot;&gt;http://localhost:3000&lt;/div&gt;</span>
+<span class="line-num">396</span><span class="line-text">        &lt;/div&gt;</span>
+<span class="line-num">397</span><span class="line-text">        &lt;div class=&quot;cover-meta-item&quot;&gt;</span>
+<span class="line-num">398</span><span class="line-text">          &lt;div class=&quot;cover-meta-label&quot;&gt;Total Codebase Volume&lt;/div&gt;</span>
+<span class="line-num">399</span><span class="line-text">          &lt;div class=&quot;cover-meta-val&quot;&gt;${filesToInclude.length} files &amp;bull; ${totalLines.toLocaleString()} total lines&lt;/div&gt;</span>
+<span class="line-num">400</span><span class="line-text">        &lt;/div&gt;</span>
+<span class="line-num">401</span><span class="line-text">      &lt;/div&gt;</span>
+<span class="line-num">402</span><span class="line-text">    &lt;/div&gt;</span>
+<span class="line-num">403</span><span class="line-text">  &lt;/div&gt;</span>
+<span class="line-num">404</span><span class="line-text">&nbsp;</span>
+<span class="line-num">405</span><span class="line-text">  &lt;!-- Table of Contents --&gt;</span>
+<span class="line-num">406</span><span class="line-text">  &lt;div class=&quot;toc-section&quot;&gt;</span>
+<span class="line-num">407</span><span class="line-text">    &lt;h2 class=&quot;toc-title&quot;&gt;Table of Contents&lt;/h2&gt;</span>
+<span class="line-num">408</span><span class="line-text">    &lt;div class=&quot;toc-subtitle&quot;&gt;Comprehensive listing of all project source code modules, schemas, and configurations.&lt;/div&gt;</span>
+<span class="line-num">409</span><span class="line-text">    &lt;table class=&quot;toc-table&quot;&gt;</span>
+<span class="line-num">410</span><span class="line-text">      &lt;thead&gt;</span>
+<span class="line-num">411</span><span class="line-text">        &lt;tr&gt;</span>
+<span class="line-num">412</span><span class="line-text">          &lt;th&gt;#&lt;/th&gt;</span>
+<span class="line-num">413</span><span class="line-text">          &lt;th&gt;File Name&lt;/th&gt;</span>
+<span class="line-num">414</span><span class="line-text">          &lt;th&gt;Module Description&lt;/th&gt;</span>
+<span class="line-num">415</span><span class="line-text">          &lt;th&gt;Language&lt;/th&gt;</span>
+<span class="line-num">416</span><span class="line-text">          &lt;th&gt;Lines&lt;/th&gt;</span>
+<span class="line-num">417</span><span class="line-text">        &lt;/tr&gt;</span>
+<span class="line-num">418</span><span class="line-text">      &lt;/thead&gt;</span>
+<span class="line-num">419</span><span class="line-text">      &lt;tbody&gt;</span>
+<span class="line-num">420</span><span class="line-text">        ${tocItems}</span>
+<span class="line-num">421</span><span class="line-text">      &lt;/tbody&gt;</span>
+<span class="line-num">422</span><span class="line-text">    &lt;/table&gt;</span>
+<span class="line-num">423</span><span class="line-text">  &lt;/div&gt;</span>
+<span class="line-num">424</span><span class="line-text">&nbsp;</span>
+<span class="line-num">425</span><span class="line-text">  &lt;!-- All Source Code Files --&gt;</span>
+<span class="line-num">426</span><span class="line-text">  ${filesContentHtml}</span>
+<span class="line-num">427</span><span class="line-text">&nbsp;</span>
+<span class="line-num">428</span><span class="line-text">&lt;/body&gt;</span>
+<span class="line-num">429</span><span class="line-text">&lt;/html&gt;</span>
+<span class="line-num">430</span><span class="line-text">`;</span>
+<span class="line-num">431</span><span class="line-text">&nbsp;</span>
+<span class="line-num">432</span><span class="line-text">fs.writeFileSync(outputFileHtml, fullHtml, &#039;utf8&#039;);</span>
+<span class="line-num">433</span><span class="line-text">console.log(&#039;Generated HTML preview at:&#039;, outputFileHtml);</span>
+<span class="line-num">434</span><span class="line-text">&nbsp;</span>
+<span class="line-num">435</span><span class="line-text">// Compile to PDF using Edge Headless</span>
+<span class="line-num">436</span><span class="line-text">console.log(&#039;Compiling to PDF using Microsoft Edge...&#039;);</span>
+<span class="line-num">437</span><span class="line-text">const edgePath = &#039;C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe&#039;;</span>
+<span class="line-num">438</span><span class="line-text">const cmd = `&quot;${edgePath}&quot; --headless=new --disable-gpu --no-pdf-header-footer --print-to-pdf=&quot;${outputFilePdf}&quot; &quot;${outputFileHtml}&quot;`;</span>
+<span class="line-num">439</span><span class="line-text">&nbsp;</span>
+<span class="line-num">440</span><span class="line-text">try {</span>
+<span class="line-num">441</span><span class="line-text">  execSync(cmd, { stdio: &#039;inherit&#039; });</span>
+<span class="line-num">442</span><span class="line-text">  const stats = fs.statSync(outputFilePdf);</span>
+<span class="line-num">443</span><span class="line-text">  console.log(`Successfully generated PDF: ${outputFilePdf} (${(stats.size / 1024).toFixed(1)} KB)`);</span>
+<span class="line-num">444</span><span class="line-text">} catch (err) {</span>
+<span class="line-num">445</span><span class="line-text">  console.error(&#039;Error generating PDF:&#039;, err.message);</span>
+<span class="line-num">446</span><span class="line-text">  process.exit(1);</span>
+<span class="line-num">447</span><span class="line-text">}</span>
+<span class="line-num">448</span><span class="line-text">&nbsp;</span></code></pre>
     </div>
   
 
