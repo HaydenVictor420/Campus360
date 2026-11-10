@@ -1,0 +1,20 @@
+{
+  "name": "ims-student-poc",
+  "version": "1.0.0",
+  "description": "Educational Institution Management Information System (IMS) PoC based on IEEE 10058674, IEEE 10516390, and IEEE 7384005",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "app": "node app.js",
+    "build:pdf": "node build-code-pdf.js"
+  },
+  "keywords": [
+    "ieee",
+    "institution-management",
+    "student-information-system",
+    "4-tier-architecture"
+  ],
+  "author": "Antigravity Engineering",
+  "license": "ISC"
+}

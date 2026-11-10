@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Institution Management System (IMS) - PoC | IEEE 10058674, 10516390, 7384005</title>
+  <meta name="description" content="Proof of Concept for Educational Institution Management Information System and Student Module based on IEEE 10058674, IEEE 10516390, and IEEE 7384005.">
+  
+  <!-- Modern Typography from Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Top Application Navigation Header -->
+  <header class="app-header">
+    <div class="brand-section">
+      <div class="brand-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+          <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <h1>Institution Management System (IMS)</h1>
+        <div class="subtitle">
+          <span>Student Module & Computer-Aided Architecture</span>
+          <span class="badge-tag">IEEE 10058674</span>
+          <span class="badge-tag">IEEE 10516390</span>
+          <span class="badge-tag">IEEE 7384005</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Role Switcher & Action Bar -->
+    <div class="header-actions">
+      <div class="role-switcher-container">
+        <span class="role-label">Active Role:</span>
+        <button class="role-btn active" data-role="admin">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="8.5" cy="7" r="4"></circle>
+            <polyline points="17 11 19 13 23 9"></polyline>
+          </svg>
+          Admin
+        </button>
+        <button class="role-btn" data-role="faculty">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+          </svg>
+          Faculty
+        </button>
+        <button class="role-btn" data-role="student">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          Student
+        </button>
+      </div>
+
+      <button class="btn-quick" id="btn-export-data" title="Export current database as JSON">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        Export
+      </button>
+
+      <button class="btn-quick" id="btn-reset-data" title="Reset to original IEEE dataset">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M2.5 2v6h6M21.5 22v-6h-6"></path>
+          <path d="M22 11.5A10 10 0 0 0 3.2 7.2M2 12.5a10 10 0 0 0 18.8 4.2"></path>
+        </svg>
+        Reset
+      </button>
+
+      <button class="btn-quick btn-primary" id="btn-new-student">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+        Enroll Student
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="app-container">
+
+    <!-- Secondary Navigation / Module Tabs -->
+    <nav class="tabs-navigation">
+      <button class="tab-nav-btn active" data-tab="directory">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+          <circle cx="9" cy="7" r="4"></circle>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+        </svg>
+        Student Module (Master Records)
+      </button>
+
+      <button class="tab-nav-btn" data-tab="academics">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+        </svg>
+        Comprehensive Scores & Grades
+      </button>
+
+      <button class="tab-nav-btn" data-tab="placements">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+          <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+        </svg>
+        Placement & Internships
+      </button>
+
+      <button class="tab-nav-btn" data-tab="research">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+        </svg>
+        Research Papers & Capstones
+      </button>
+
+      <button class="tab-nav-btn" data-tab="architecture">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+          <polyline points="2 17 12 22 22 17"></polyline>
+          <polyline points="2 12 12 17 22 12"></polyline>
+        </svg>
+        4-Tier Architecture & ER Schema
+      </button>
+
+      <button class="tab-nav-btn" data-tab="communications">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+        Campus Notice Hub
+      </button>
+    </nav>
+
+    <!-- Key Performance Metrics Row -->
+    <div class="hero-stats-grid">
+      <div class="stat-card" style="--accent-color: var(--primary); --accent-light: var(--primary-light);">
+        <div class="stat-header">
+          <span class="stat-title">Enrolled Students</span>
+          <div class="stat-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+            </svg>
+          </div>
+        </div>
+        <div class="stat-value" id="metric-total-students">5</div>
+        <div class="stat-footer">
+          <span class="stat-trend-up">&uarr; Active Cohort</span>
+          <span>across 4 Engineering Depts</span>
+        </div>
+      </div>
+
+      <div class="stat-card" style="--accent-color: var(--emerald); --accent-light: var(--emerald-light);">
+        <div class="stat-header">
+          <span class="stat-title">Cohort Mean CGPA</span>
+          <div class="stat-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="8" r="7"></circle>
+              <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+            </svg>
+          </div>
+        </div>
+        <div class="stat-value" id="metric-avg-cgpa">8.82</div>
+        <div class="stat-footer">
+          <span class="stat-trend-up">&uarr; Comprehensive</span>
+          <span>scale out of 10.0</span>
+        </div>
+      </div>
+
+      <div class="stat-card" style="--accent-color: var(--cyan); --accent-light: var(--cyan-light);">
+        <div class="stat-header">
+          <span class="stat-title">Campus Placement Rate</span>
+          <div class="stat-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="stat-value" id="metric-placement-rate">60%</div>
+        <div class="stat-footer">
+          <span class="stat-trend-up">Tier-1 Offers</span>
+          <span>Google, NVIDIA, Microsoft</span>
+        </div>
+      </div>
+
+      <div class="stat-card" style="--accent-color: var(--purple); --accent-light: var(--purple-light);">
+        <div class="stat-header">
+          <span class="stat-title">Publications & Capstones</span>
+          <div class="stat-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+          </div>
+        </div>
+        <div class="stat-value" id="metric-publications">5</div>
+        <div class="stat-footer">
+          <span class="stat-trend-up">&uarr; Peer-reviewed</span>
+          <span>IEEE & ACM venues</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dynamic Content Body Rendered by app.js -->
+    <div id="main-content"></div>
+
+  </main>
+
+  <!-- Modal Dialog Overlay Container -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="modal-title">Modal Title</h3>
+        <button class="modal-close-btn" id="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body" id="modal-body">
+        <!-- Injected dynamically -->
+      </div>
+      <div class="modal-footer" id="modal-footer">
+        <!-- Injected dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Application Logic Scripts -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
