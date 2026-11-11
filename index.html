@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus360 — Unified Academic & Student Intelligence Gateway</title>
+  <meta name="description" content="Campus360 collates real-time attendance percentages, dynamic timetables with room changes, period-wise lecture logs, marks and project deadlines, syllabus revision tracking, and lab booking into one centralized foreground portal.">
+
+  <!-- Google Fonts: Inter & Google Material Symbols Outlined -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+  <!-- Master Stylesheet -->
+  <link rel="stylesheet" href="css/campus360.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+</head>
+<body>
+
+  <!-- App Layout Container -->
+  <div class="app-container">
+
+    <!-- ====================================================================
+         LEFT SIDEBAR NAVIGATION
+         ==================================================================== -->
+    <aside class="sidebar">
+      <!-- Sidebar Header / Branding -->
+      <div class="sidebar-header">
+        <a class="brand-badge" onclick="Campus360App.navigateTo('student-dashboard')">
+          <div class="brand-icon">
+            <span class="material-symbols-outlined">school</span>
+          </div>
+          <div class="brand-info">
+            <h1>Campus360</h1>
+            <p>Unified Portal</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Navigation Links Container -->
+      <div class="sidebar-scroll">
+
+        <!-- Role Portals Group -->
+        <div>
+          <div class="sidebar-group-title">
+            <span>Core Portals</span>
+            <span class="material-symbols-outlined" style="font-size:14px;">manage_accounts</span>
+          </div>
+          <ul class="nav-list">
+            <li>
+              <a class="nav-link active" data-view="student-dashboard" onclick="Campus360App.navigateTo('student-dashboard')">
+                <span class="material-symbols-outlined">dashboard</span>
+                <span>Student Dashboard</span>
+              </a>
+            </li>
+            <li>
+              <a class="nav-link" data-view="admin-dashboard" onclick="Campus360App.navigateTo('admin-dashboard')">
+                <span class="material-symbols-outlined">shield_person</span>
+                <span>Admin Operations</span>
+              </a>
+            </li>
+            <li>
+              <a class="nav-link" data-view="staff-dashboard" onclick="Campus360App.navigateTo('staff-dashboard')">
+                <span class="material-symbols-outlined">person_apron</span>
+                <span>Staff & Faculty Portal</span>
+              </a>
+            </li>
+            <li>
+              <a class="nav-link" data-view="hod-dashboard" onclick="Campus360App.navigateTo('hod-dashboard')">
+                <span class="material-symbols-outlined">account_balance</span>
+                <span>HOD Oversight</span>
+              </a>
+            </li>
+            <li>
+              <a class="nav-link" data-view="parent-dashboard" onclick="Campus360App.navigateTo('parent-dashboard')">
+                <span class="material-symbols-outlined">family_restroom</span>
+                <span>Parent Dashboard</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Problem Statement Solution Modules Group -->
+        <div>
+          <div class="sidebar-group-title">
+            <span>Academic Solutions</span>
+            <span class="material-symbols-outlined" style="font-size:14px;">auto_awesome</span>
+          </div>
+          <ul class="nav-list">
+            <li>
+              <a class="nav-link" data-view="attendance" onclick="Campus360App.navigateTo('attendance')">
+                <span class="material-symbols-outlined">fact_check</span>
+                <span>Attendance & Radar</span>
+                <span class="nav-badge danger">&lt;75% Alert</span>
+              </a>
+            </li>
+            <li>
+              <a class="nav-link" data-view="cgpa" onclick="Campus360App.navigateTo('cgpa')">
+                <span class="material-symbols-outlined">calculate</span>
+                <span>CGPA / SGPA Engine</span>
+                <span class="nav-badge primary">Dynamic</span>
+              </a>
+            </li>
+            <li>
+              <a class="nav-link" data-view="timetable" onclick="Campus360App.navigateTo('timetable')">
+                <span class="material-symbols-outlined">calendar_today</span>
+                <span>Timetable & Shifts</span>
+                <span class="nav-badge danger">Room Shift</span>
+              </a>
+            </li>
+            <li>
+              <a class="nav-link" data-view="period-log" onclick="Campus360App.navigateTo('period-log')">
+                <span class="material-symbols-outlined">history_edu</span>
+                <span>Period-Wise Class Log</span>
+                <span class="nav-badge success">Live</span>
+              </a>
+            </li>
+            <li>
+              <a class="nav-link" data-view="marks-projects" onclick="Campus360App.navigateTo('marks-projects')">
+                <span class="material-symbols-outlined">assignment_turned_in</span>
+                <span>Marks & Projects</span>
+                <span class="nav-badge warning">3 Days Left</span>
+              </a>
+            </li>
+            <li>
+              <a class="nav-link" data-view="syllabus" onclick="Campus360App.navigateTo('syllabus')">
+                <span class="material-symbols-outlined">checklist</span>
+                <span>Syllabus Tracker</span>
+                <span class="nav-badge primary">Exam Prep</span>
+              </a>
+            </li>
+            <li>
+              <a class="nav-link" data-view="lab-booking" onclick="Campus360App.navigateTo('lab-booking')">
+                <span class="material-symbols-outlined">meeting_room</span>
+                <span>Lab & Hall Booking</span>
+                <span class="nav-badge success">Instant Pass</span>
+              </a>
+            </li>
+            <li>
+              <a class="nav-link" data-view="announcements" onclick="Campus360App.navigateTo('announcements')">
+                <span class="material-symbols-outlined">campaign</span>
+                <span>Upcoming & Notices</span>
+                <span class="nav-badge danger">Urgent</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Campus Services Group -->
+        <div>
+          <div class="sidebar-group-title">
+            <span>Campus Services</span>
+            <span class="material-symbols-outlined" style="font-size:14px;">headset_mic</span>
+          </div>
+          <ul class="nav-list">
+            <li>
+              <a class="nav-link" data-view="leaves" onclick="Campus360App.navigateTo('leaves')">
+                <span class="material-symbols-outlined">description</span>
+                <span>Leave & OD Clearance</span>
+              </a>
+            </li>
+            <li>
+              <a class="nav-link" data-view="support" onclick="Campus360App.navigateTo('support')">
+                <span class="material-symbols-outlined">support_agent</span>
+                <span>Helpdesk & Grievance</span>
+              </a>
+            </li>
+            <li>
+              <a class="nav-link" data-view="contact" onclick="Campus360App.navigateTo('contact')">
+                <span class="material-symbols-outlined">contacts</span>
+                <span>Contacts & Emergency SOS</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Extensibility & Future Expansion Group -->
+        <div>
+          <div class="sidebar-group-title">
+            <span>Extensibility Hub</span>
+            <span class="material-symbols-outlined" style="font-size:14px;">extension</span>
+          </div>
+          <ul class="nav-list">
+            <li>
+              <a class="nav-link" data-view="extensibility" onclick="Campus360App.navigateTo('extensibility')">
+                <span class="material-symbols-outlined">add_circle</span>
+                <span>+ Add Future Dashboard</span>
+                <span class="nav-badge primary">Modular</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Sidebar User Footer -->
+      <div class="sidebar-footer">
+        <div class="user-card" onclick="Campus360App.openLoginModal()">
+          <div class="user-avatar-wrap">
+            <span id="sidebarUserBadge">🎓</span>
+            <div class="user-status-dot"></div>
+          </div>
+          <div class="user-meta">
+            <div class="user-meta-name" id="sidebarUserName">Alex Turner</div>
+            <div class="user-meta-role" id="sidebarUserRole">Student (CSE - 5th Sem)</div>
+          </div>
+          <span class="material-symbols-outlined text-dim" style="font-size:18px;">swap_horiz</span>
+        </div>
+      </div>
+    </aside>
+
+
+    <!-- ====================================================================
+         MAIN VIEWPORT WRAPPER
+         ==================================================================== -->
+    <div class="main-wrapper">
+
+      <!-- TOPBAR NAVIGATION -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <!-- Mobile Hamburger Toggle -->
+          <button class="mobile-toggle-btn" onclick="document.querySelector('.sidebar').classList.toggle('mobile-open')">
+            <span class="material-symbols-outlined">menu</span>
+          </button>
+
+          <!-- Global Search Input -->
+          <div class="topbar-search" onclick="Campus360App.openGlobalSearchModal()">
+            <span class="material-symbols-outlined">search</span>
+            <input type="text" placeholder="Search subjects, rooms, labs..." readonly>
+            <span class="kbd-hint">Ctrl+K</span>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <!-- Live Session Clock -->
+          <div style="font-size:12.5px; color:var(--text-muted); display:flex; align-items:center; gap:6px;">
+            <span class="material-symbols-outlined text-secondary" style="font-size:16px;">schedule</span>
+            <span id="liveClockDisplay">Loading clock...</span>
+          </div>
+
+          <!-- Quick 1-Click Role Persona Switcher Pill -->
+          <div class="role-switcher-wrap" title="1-Click Switch Persona">
+            <button class="role-pill active" data-role="student" onclick="Campus360App.switchRole('student')">
+              🎓 Student
+            </button>
+            <button class="role-pill" data-role="staff" onclick="Campus360App.switchRole('staff')">
+              👨‍🏫 Staff
+            </button>
+            <button class="role-pill" data-role="hod" onclick="Campus360App.switchRole('hod')">
+              🏛️ HOD
+            </button>
+            <button class="role-pill" data-role="admin" onclick="Campus360App.switchRole('admin')">
+              🛡️ Admin
+            </button>
+            <button class="role-pill" data-role="parent" onclick="Campus360App.switchRole('parent')">
+              👨‍👩‍👦 Parent
+            </button>
+          </div>
+
+          <!-- Notification Bell -->
+          <button class="notification-bell-btn" title="Campus Notifications" onclick="Campus360App.openNotifications()">
+            <span class="material-symbols-outlined" style="font-size:20px;">notifications</span>
+            <div class="notif-badge-dot"></div>
+          </button>
+
+          <!-- Auth Login / Sign Up Button -->
+          <button class="topbar-btn primary" onclick="Campus360App.openLoginModal()">
+            <span class="material-symbols-outlined" style="font-size:18px;">login</span>
+            <span>Sign In / Demo</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- DYNAMIC CONTENT BODY -->
+      <main class="content-body" id="mainContentBody">
+        <!-- Rendered dynamically by active module -->
+      </main>
+
+    </div>
+
+  </div>
+
+
+  <!-- ====================================================================
+       GLOBAL MODAL DIALOG CONTAINER
+       ==================================================================== -->
+  <div class="modal-overlay" id="globalModalOverlay" onclick="if(event.target === this) Campus360App.closeModal();">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="globalModalTitle">Modal Title</h3>
+        <button class="modal-close-btn" onclick="Campus360App.closeModal()">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="modal-body" id="globalModalBody">
+        <!-- Injected via JavaScript -->
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ====================================================================
+       GLOBAL TOAST NOTIFICATIONS
+       ==================================================================== -->
+  <div id="toast-container"></div>
+
+
+  <!-- ====================================================================
+       JAVASCRIPT MODULES & CORE SCRIPTS
+       ==================================================================== -->
+  <script src="js/data.js"></script>
+  <script src="js/modules/attendance.js"></script>
+  <script src="js/modules/cgpa.js"></script>
+  <script src="js/modules/timetable.js"></script>
+  <script src="js/modules/periodLog.js"></script>
+  <script src="js/modules/marksProjects.js"></script>
+  <script src="js/modules/syllabusTracker.js"></script>
+  <script src="js/modules/labBooking.js"></script>
+  <script src="js/modules/announcements.js"></script>
+  <script src="js/modules/leaves.js"></script>
+  <script src="js/modules/supportContact.js"></script>
+  <script src="js/modules/extensibility.js"></script>
+  <script src="js/modules/roleDashboards.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
+

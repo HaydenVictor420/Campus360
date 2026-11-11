@@ -1,0 +1,23 @@
+{
+  "name": "campus360-foreground-gui",
+  "version": "1.0.0",
+  "description": "Campus360 — Unified Student & Academic Intelligence Gateway",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "campus360",
+    "student-portal",
+    "gui",
+    "attendance",
+    "cgpa",
+    "timetable",
+    "period-log",
+    "syllabus-tracker"
+  ],
+  "author": "Envision Project Team",
+  "license": "ISC"
+}
+
