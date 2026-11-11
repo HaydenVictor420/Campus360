@@ -1052,16 +1052,46 @@ body {
   background: rgba(255, 255, 255, 0.15);
   outline: none;
   -webkit-appearance: none;
+  appearance: none;
+  transition: all var(--speed);
+}
+
+.sim-slider:focus-visible {
+  outline: 2px solid var(--secondary);
+  outline-offset: 2px;
 }
 
 .sim-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
+  appearance: none;
   width: 18px;
   height: 18px;
   border-radius: var(--radius-full);
   background: var(--secondary);
   cursor: pointer;
   box-shadow: 0 0 10px var(--secondary-glow);
+  transition: transform var(--speed), box-shadow var(--speed);
+}
+
+.sim-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 15px var(--secondary-glow);
+}
+
+.sim-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border: none;
+  border-radius: var(--radius-full);
+  background: var(--secondary);
+  cursor: pointer;
+  box-shadow: 0 0 10px var(--secondary-glow);
+  transition: transform var(--speed), box-shadow var(--speed);
+}
+
+.sim-slider::-moz-range-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 15px var(--secondary-glow);
 }
 
 .sim-output-card {
