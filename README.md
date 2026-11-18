@@ -112,9 +112,31 @@ The data model follows the ER diagram specified in **IEEE 7384005**:
    - Calculates letter grades (`O`, `A+`, `A`, `B+`, `B`, `C`, `F`) and GPAs dynamically.
 4. **Placement Directorate & Eligibility Audit**:
    - Automates candidate shortlisting based on CGPA thresholds and zero-backlog checks.
-5. **Zero-Dependency Architecture**:
+5. **Deadline & Task Reminder Hub (Clean REST API & Desktop Alerts)**:
+   - Zero-dependency RESTful backend API (`/api/deadlines`) with JSON database persistence (`data/deadlines.json`).
+   - Dynamic real-time countdown engine, pulsating urgency badges (`Overdue`, `Due Soon < 48h`), and HTML5 desktop push notifications.
+   - Multi-predicate filtering by course, status, category (Assignments, Labs, Projects, Exams, Research, Placements), and priority.
+   - Quick task actions: One-click status toggle, +24h snooze, modal editing, and deletion.
+6. **Zero-Dependency Architecture**:
    - Pure HTML5, modern vanilla CSS, and vanilla JavaScript.
-   - Persistent `localStorage` database with one-click JSON export and reset to seed data.
+   - Dual-mode operation: Runs on local Node.js server with live REST API, and falls back to `localStorage` when hosted statically on GitHub Pages.
+
+---
+
+## 📡 Backend REST API Specifications (`/api/deadlines`)
+
+| HTTP Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `GET` | `/api/deadlines` | Retrieve all deadlines (supports `?status=`, `?priority=`, `?category=`, `?search=`, `?sortBy=`) |
+| `GET` | `/api/deadlines/summary` | Retrieve summary statistics (total, dueSoon, overdue, completed, highPriority) |
+| `POST` | `/api/deadlines` | Create a new deadline reminder (JSON body: `title`, `courseCode`, `dueDate`, `priority`, etc.) |
+| `GET` | `/api/deadlines/:id` | Fetch details of a single deadline |
+| `PUT` | `/api/deadlines/:id` | Update an existing deadline |
+| `DELETE` | `/api/deadlines/:id` | Remove a deadline |
+| `POST` | `/api/deadlines/:id/toggle` | Toggle completion status (`pending` ⇄ `completed`) |
+| `POST` | `/api/deadlines/:id/snooze` | Extend due date by specified hours (default `24h`) |
+| `POST` | `/api/deadlines/reset` | Reset deadline database to initial IEEE seed records |
+| `GET` | `/api/health` | Service health status & server time |
 
 ---
 

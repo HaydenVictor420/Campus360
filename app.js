@@ -227,12 +227,33 @@ class InstitutionManagementApp {
 
     // Current session state
     this.currentRole = 'admin'; // 'admin' | 'faculty' | 'student'
-    this.activeTab = 'directory'; // 'directory' | 'academics' | 'placements' | 'research' | 'architecture' | 'communications'
+    this.activeTab = 'directory'; // 'directory' | 'academics' | 'placements' | 'research' | 'architecture' | 'communications' | 'deadlines'
     this.selectedStudentForDetail = null;
+
+    // Deadline Reminder Module state
+    this.deadlineClient = typeof DeadlineApiClient !== 'undefined' ? new DeadlineApiClient() : null;
+    this.deadlineFilters = {
+      status: 'all',
+      priority: 'all',
+      category: 'all',
+      course: 'all',
+      search: '',
+      sortBy: 'dueDate',
+      order: 'asc'
+    };
 
     this.initDOMReferences();
     this.bindEvents();
     this.render();
+
+    // Start background timer to refresh deadlines countdown every 30s
+    setInterval(() => {
+      if (this.activeTab === 'deadlines') {
+        this.renderDeadlinesView();
+      } else {
+        this.updateDeadlineBadge();
+      }
+    }, 30000);
   }
 
   initDOMReferences() {
@@ -240,6 +261,7 @@ class InstitutionManagementApp {
     this.roleButtons = document.querySelectorAll('.role-btn');
     this.tabButtons = document.querySelectorAll('.tab-nav-btn');
     this.activeRoleBadge = document.getElementById('active-role-badge');
+    this.badgeDeadlineCount = document.getElementById('badge-deadline-count');
 
     // Metrics elements
     this.metricTotalStudents = document.getElementById('metric-total-students');
@@ -326,6 +348,7 @@ class InstitutionManagementApp {
 
   render() {
     this.renderMetrics();
+    this.updateDeadlineBadge();
 
     switch (this.activeTab) {
       case 'directory':
@@ -345,6 +368,9 @@ class InstitutionManagementApp {
         break;
       case 'communications':
         this.renderCommunicationsView();
+        break;
+      case 'deadlines':
+        this.renderDeadlinesView();
         break;
       default:
         this.renderStudentDirectoryView();
@@ -1707,6 +1733,562 @@ class InstitutionManagementApp {
       toast.style.transition = 'all 0.3s ease';
       setTimeout(() => toast.remove(), 300);
     }, 3200);
+  }
+
+  // ==========================================================================
+  // DEADLINE REMINDER MODULE (VIEW & CONTROLLER)
+  // ==========================================================================
+
+  async updateDeadlineBadge() {
+    if (!this.deadlineClient || !this.badgeDeadlineCount) return;
+    try {
+      const summary = await this.deadlineClient.getSummary();
+      const urgentCount = (summary.dueSoon || 0) + (summary.overdue || 0);
+      if (urgentCount > 0) {
+        this.badgeDeadlineCount.textContent = urgentCount;
+        this.badgeDeadlineCount.style.display = 'inline-flex';
+      } else {
+        this.badgeDeadlineCount.style.display = 'none';
+      }
+    } catch (e) {
+      // Silent badge fallback
+    }
+  }
+
+  async renderDeadlinesView() {
+    if (!this.deadlineClient) return;
+
+    // Show loading skeleton if empty
+    if (!this.mainContent.querySelector('.deadlines-container')) {
+      this.mainContent.innerHTML = `
+        <div class="deadlines-container">
+          <div style="text-align: center; padding: 3rem; color: var(--text-muted);">
+            <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">⏳</div>
+            Loading Academic Deadlines & Task Reminders...
+          </div>
+        </div>
+      `;
+    }
+
+    try {
+      const summary = await this.deadlineClient.getSummary();
+      const deadlines = await this.deadlineClient.getDeadlines(this.deadlineFilters);
+      const courses = this.dal.getCourses();
+
+      // Check for browser notifications if enabled
+      this.deadlineClient.checkAndNotify(deadlines);
+      this.updateDeadlineBadge();
+
+      const notifState = typeof Notification !== 'undefined' ? Notification.permission : 'unsupported';
+
+      this.mainContent.innerHTML = `
+        <div class="deadlines-container">
+
+          <!-- Header Row -->
+          <div class="deadlines-header-row">
+            <div class="deadlines-header-title">
+              <h2>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                Deadline & Task Reminder Hub
+              </h2>
+              <p>Clean REST API-backed academic calendar with live countdowns, priority urgency tracking, and browser push alerts.</p>
+            </div>
+
+            <div class="deadlines-header-actions">
+              ${notifState === 'default' ? `
+                <button class="btn-quick" id="btn-enable-notifs" title="Allow browser desktop notifications">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                  </svg>
+                  Enable Desktop Alerts
+                </button>
+              ` : ''}
+
+              <button class="btn-quick" id="btn-reset-deadlines" title="Reset to IEEE academic sample deadlines">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M2.5 2v6h6M21.5 22v-6h-6"></path>
+                  <path d="M22 11.5A10 10 0 0 0 3.2 7.2M2 12.5a10 10 0 0 0 18.8 4.2"></path>
+                </svg>
+                Reset Defaults
+              </button>
+
+              <button class="btn-quick btn-primary" id="btn-add-deadline">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                New Deadline
+              </button>
+            </div>
+          </div>
+
+          <!-- Summary Metric Cards -->
+          <div class="deadlines-summary-grid">
+            <div class="dl-stat-card">
+              <div class="dl-stat-label">
+                <span>Total Items</span>
+                <span>📋</span>
+              </div>
+              <div class="dl-stat-value">${summary.total || 0}</div>
+              <div class="dl-stat-sub">${summary.pending || 0} active &bull; ${summary.completed || 0} done</div>
+            </div>
+
+            <div class="dl-stat-card due-soon">
+              <div class="dl-stat-label">
+                <span>Due in &lt; 48h</span>
+                <span>⚡</span>
+              </div>
+              <div class="dl-stat-value" style="color: var(--amber);">${summary.dueSoon || 0}</div>
+              <div class="dl-stat-sub">Immediate submission window</div>
+            </div>
+
+            <div class="dl-stat-card overdue">
+              <div class="dl-stat-label">
+                <span>Overdue</span>
+                <span>🚨</span>
+              </div>
+              <div class="dl-stat-value" style="color: var(--rose);">${summary.overdue || 0}</div>
+              <div class="dl-stat-sub">Requires urgent attention</div>
+            </div>
+
+            <div class="dl-stat-card completed">
+              <div class="dl-stat-label">
+                <span>Completed</span>
+                <span>✅</span>
+              </div>
+              <div class="dl-stat-value" style="color: var(--emerald);">${summary.completed || 0}</div>
+              <div class="dl-stat-sub">Tasks successfully submitted</div>
+            </div>
+          </div>
+
+          <!-- Controls Bar: Filter Pills, Search, Sorting -->
+          <div class="deadlines-controls-bar">
+            <div class="filter-pills-group">
+              <button class="filter-pill ${this.deadlineFilters.status === 'all' ? 'active' : ''}" data-filter-status="all">
+                All (${summary.total || 0})
+              </button>
+              <button class="filter-pill badge-pill ${this.deadlineFilters.status === 'due-soon' ? 'active' : ''}" data-filter-status="due-soon">
+                <span>⚡ Due Soon</span>
+                <span class="pill-count">${summary.dueSoon || 0}</span>
+              </button>
+              <button class="filter-pill badge-pill ${this.deadlineFilters.status === 'overdue' ? 'active' : ''}" data-filter-status="overdue">
+                <span>🚨 Overdue</span>
+                <span class="pill-count">${summary.overdue || 0}</span>
+              </button>
+              <button class="filter-pill ${this.deadlineFilters.status === 'pending' ? 'active' : ''}" data-filter-status="pending">
+                Pending (${summary.pending || 0})
+              </button>
+              <button class="filter-pill ${this.deadlineFilters.status === 'completed' ? 'active' : ''}" data-filter-status="completed">
+                Completed (${summary.completed || 0})
+              </button>
+            </div>
+
+            <div class="deadlines-search-sort">
+              <div class="search-input-wrap">
+                <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" id="dl-search-input" placeholder="Search title, course, or keyword..." value="${this.deadlineFilters.search || ''}" />
+              </div>
+
+              <select class="select-filter" id="dl-filter-category" title="Filter by Category">
+                <option value="all" ${this.deadlineFilters.category === 'all' ? 'selected' : ''}>All Categories</option>
+                <option value="Assignment" ${this.deadlineFilters.category === 'Assignment' ? 'selected' : ''}>Assignments</option>
+                <option value="Project" ${this.deadlineFilters.category === 'Project' ? 'selected' : ''}>Projects</option>
+                <option value="Lab" ${this.deadlineFilters.category === 'Lab' ? 'selected' : ''}>Labs</option>
+                <option value="Research" ${this.deadlineFilters.category === 'Research' ? 'selected' : ''}>Research</option>
+                <option value="Placement" ${this.deadlineFilters.category === 'Placement' ? 'selected' : ''}>Placements</option>
+                <option value="Exam" ${this.deadlineFilters.category === 'Exam' ? 'selected' : ''}>Exams</option>
+              </select>
+
+              <select class="select-filter" id="dl-filter-priority" title="Filter by Priority">
+                <option value="all" ${this.deadlineFilters.priority === 'all' ? 'selected' : ''}>All Priorities</option>
+                <option value="High" ${this.deadlineFilters.priority === 'High' ? 'selected' : ''}>High Priority</option>
+                <option value="Medium" ${this.deadlineFilters.priority === 'Medium' ? 'selected' : ''}>Medium</option>
+                <option value="Low" ${this.deadlineFilters.priority === 'Low' ? 'selected' : ''}>Low</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Deadlines List Grid -->
+          <div class="deadlines-list-grid">
+            ${deadlines.length === 0 ? `
+              <div class="empty-deadlines-state">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="8" x2="12" y2="12"></line>
+                  <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+                <h3>No deadlines found matching your filters</h3>
+                <p>Try clearing filters or click "New Deadline" to schedule an academic task.</p>
+              </div>
+            ` : deadlines.map(d => {
+              const countdown = DeadlineApiClient.formatCountdown(d.dueDate, d.status === 'completed');
+              const priorityClass = d.priority ? `p-${d.priority.toLowerCase()}` : 'p-medium';
+              const isCompleted = d.status === 'completed';
+
+              return `
+                <div class="deadline-card ${priorityClass} ${isCompleted ? 'completed' : ''}" data-id="${d.id}">
+                  <div class="deadline-card-header">
+                    <div class="deadline-badges-row">
+                      <span class="dl-badge course">${d.courseCode || 'GENERAL'}</span>
+                      <span class="dl-badge category">${d.category || 'Task'}</span>
+                      <span class="dl-badge priority-${(d.priority || 'medium').toLowerCase()}">${d.priority || 'Medium'}</span>
+                    </div>
+
+                    <div class="urgency-badge ${countdown.className}">
+                      <span>${countdown.icon}</span>
+                      <span>${countdown.text}</span>
+                    </div>
+                  </div>
+
+                  <div class="deadline-title">${d.title}</div>
+
+                  ${d.description ? `<div class="deadline-desc">${d.description}</div>` : ''}
+
+                  <div class="deadline-meta-row">
+                    <div class="deadline-meta-due">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                      </svg>
+                      <span>Due: ${DeadlineApiClient.formatDateNice(d.dueDate)}</span>
+                    </div>
+                    <div>${d.assignedBy ? `By: ${d.assignedBy}` : ''}</div>
+                  </div>
+
+                  <div class="deadline-card-actions">
+                    <button class="btn-toggle-done ${isCompleted ? 'is-done' : ''}" data-action="toggle" data-id="${d.id}">
+                      ${isCompleted ? '✓ Completed' : '○ Mark Done'}
+                    </button>
+
+                    <div class="card-action-btns-right">
+                      <button class="btn-icon-action" data-action="snooze" data-id="${d.id}" title="Extend deadline by 24 hours">
+                        +24h
+                      </button>
+                      <button class="btn-icon-action" data-action="edit" data-id="${d.id}" title="Edit Deadline">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M12 20h9"></path>
+                          <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                        </svg>
+                      </button>
+                      <button class="btn-icon-action delete" data-action="delete" data-id="${d.id}" title="Delete Deadline">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <polyline points="3 6 5 6 21 6"></polyline>
+                          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+
+        </div>
+      `;
+
+      this.bindDeadlinesEvents();
+    } catch (err) {
+      console.error('Error rendering deadlines view:', err);
+      this.mainContent.innerHTML = `<div class="glass-panel"><p style="color: var(--rose);">Failed loading deadlines: ${err.message}</p></div>`;
+    }
+  }
+
+  bindDeadlinesEvents() {
+    // 1. Status Filter Pills
+    document.querySelectorAll('[data-filter-status]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        this.deadlineFilters.status = e.currentTarget.dataset.filterStatus;
+        this.renderDeadlinesView();
+      });
+    });
+
+    // 2. Search Input (live)
+    const searchInput = document.getElementById('dl-search-input');
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        this.deadlineFilters.search = e.target.value;
+        // Debounced search
+        clearTimeout(this._searchTimer);
+        this._searchTimer = setTimeout(() => {
+          this.renderDeadlinesView();
+        }, 250);
+      });
+    }
+
+    // 3. Category Filter
+    const catSelect = document.getElementById('dl-filter-category');
+    if (catSelect) {
+      catSelect.addEventListener('change', (e) => {
+        this.deadlineFilters.category = e.target.value;
+        this.renderDeadlinesView();
+      });
+    }
+
+    // 4. Priority Filter
+    const priSelect = document.getElementById('dl-filter-priority');
+    if (priSelect) {
+      priSelect.addEventListener('change', (e) => {
+        this.deadlineFilters.priority = e.target.value;
+        this.renderDeadlinesView();
+      });
+    }
+
+    // 5. Enable Notifications Button
+    const btnNotifs = document.getElementById('btn-enable-notifs');
+    if (btnNotifs) {
+      btnNotifs.addEventListener('click', async () => {
+        if ('Notification' in window) {
+          const perm = await Notification.requestPermission();
+          if (perm === 'granted') {
+            this.showToast('Browser notifications enabled! You will receive deadline alerts.', 'success');
+            new Notification('Campus360 IMS', { body: 'Deadline reminder alerts are now active!' });
+          } else {
+            this.showToast('Browser notifications were not allowed.', 'info');
+          }
+          this.renderDeadlinesView();
+        }
+      });
+    }
+
+    // 6. Reset Seed Deadlines Button
+    const btnReset = document.getElementById('btn-reset-deadlines');
+    if (btnReset) {
+      btnReset.addEventListener('click', async () => {
+        if (confirm('Reset deadlines to the original IEEE sample records?')) {
+          await this.deadlineClient.resetDeadlines();
+          this.showToast('Deadlines reset to defaults', 'info');
+          this.renderDeadlinesView();
+        }
+      });
+    }
+
+    // 7. Add Deadline Button
+    const btnAdd = document.getElementById('btn-add-deadline');
+    if (btnAdd) {
+      btnAdd.addEventListener('click', () => this.openAddDeadlineModal());
+    }
+
+    // 8. Card Action Delegations (Toggle, Snooze, Edit, Delete)
+    document.querySelectorAll('.deadline-card').forEach(card => {
+      const id = card.dataset.id;
+
+      card.querySelectorAll('[data-action]').forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+          e.stopPropagation();
+          const action = e.currentTarget.dataset.action;
+
+          if (action === 'toggle') {
+            const updated = await this.deadlineClient.toggleDeadline(id);
+            this.showToast(`Marked deadline as ${updated.status}`, 'success');
+            this.renderDeadlinesView();
+          } else if (action === 'snooze') {
+            await this.deadlineClient.snoozeDeadline(id, 24);
+            this.showToast('Deadline extended by +24 hours', 'info');
+            this.renderDeadlinesView();
+          } else if (action === 'delete') {
+            if (confirm('Delete this deadline reminder?')) {
+              await this.deadlineClient.deleteDeadline(id);
+              this.showToast('Deadline deleted', 'info');
+              this.renderDeadlinesView();
+            }
+          } else if (action === 'edit') {
+            this.openEditDeadlineModal(id);
+          }
+        });
+      });
+    });
+  }
+
+  openAddDeadlineModal() {
+    const courses = this.dal.getCourses();
+    const defaultDate = new Date(Date.now() + 2 * 24 * 3600 * 1000).toISOString().slice(0, 16);
+
+    const bodyHtml = `
+      <form id="add-deadline-form" class="form-grid">
+        <div class="form-group col-span-2">
+          <label class="form-label">Task / Deadline Title *</label>
+          <input type="text" class="form-control" name="title" required placeholder="e.g. Distributed Consensus Lab Benchmark" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Course / Academic Subject *</label>
+          <select class="form-control" name="courseCode" required>
+            ${courses.map(c => `<option value="${c.code}">${c.code} — ${c.name}</option>`).join('')}
+            <option value="RESEARCH">RESEARCH — Campus Projects & Capstones</option>
+            <option value="CAREER">CAREER — Placement & Training Directorate</option>
+            <option value="GENERAL">GENERAL — Academic Affairs</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Category *</label>
+          <select class="form-control" name="category" required>
+            <option value="Assignment">Assignment</option>
+            <option value="Project">Project / Presentation</option>
+            <option value="Lab">Lab Submission</option>
+            <option value="Research">Research Paper</option>
+            <option value="Placement">Placement Registration</option>
+            <option value="Exam">Exam / Mid-Term</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Due Date & Time *</label>
+          <input type="datetime-local" class="form-control" name="dueDate" value="${defaultDate}" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Priority Level *</label>
+          <select class="form-control" name="priority" required>
+            <option value="High">High Priority (Urgent)</option>
+            <option value="Medium" selected>Medium Priority</option>
+            <option value="Low">Low Priority</option>
+          </select>
+        </div>
+
+        <div class="form-group col-span-2">
+          <label class="form-label">Instructions / Description</label>
+          <textarea class="form-control" name="description" rows="3" placeholder="Provide guidelines, submission links, or deliverables criteria..."></textarea>
+        </div>
+      </form>
+    `;
+
+    const footerHtml = `
+      <button class="btn-quick" id="btn-cancel-modal">Cancel</button>
+      <button class="btn-quick btn-primary" id="btn-save-deadline">Create Deadline</button>
+    `;
+
+    this.openModal('Schedule New Academic Deadline', bodyHtml, footerHtml);
+
+    document.getElementById('btn-cancel-modal').addEventListener('click', () => this.closeModal());
+    document.getElementById('btn-save-deadline').addEventListener('click', async () => {
+      const form = document.getElementById('add-deadline-form');
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const fd = new FormData(form);
+      const courseCode = fd.get('courseCode');
+      const course = courses.find(c => c.code === courseCode);
+
+      const payload = {
+        title: fd.get('title'),
+        courseCode: courseCode,
+        courseName: course ? course.name : 'Campus Academic Affairs',
+        category: fd.get('category'),
+        dueDate: fd.get('dueDate'),
+        priority: fd.get('priority'),
+        description: fd.get('description'),
+        assignedBy: this.currentRole.toUpperCase() + ' User'
+      };
+
+      await this.deadlineClient.createDeadline(payload);
+      this.closeModal();
+      this.showToast('Academic deadline created successfully', 'success');
+      this.render();
+    });
+  }
+
+  async openEditDeadlineModal(deadlineId) {
+    const deadlines = await this.deadlineClient.getDeadlines();
+    const d = deadlines.find(item => item.id === deadlineId);
+    if (!d) return;
+
+    const courses = this.dal.getCourses();
+    const dueDateFormatted = new Date(d.dueDate).toISOString().slice(0, 16);
+
+    const bodyHtml = `
+      <form id="edit-deadline-form" class="form-grid">
+        <div class="form-group col-span-2">
+          <label class="form-label">Task / Deadline Title *</label>
+          <input type="text" class="form-control" name="title" value="${d.title}" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Course / Subject</label>
+          <select class="form-control" name="courseCode" required>
+            ${courses.map(c => `<option value="${c.code}" ${d.courseCode === c.code ? 'selected' : ''}>${c.code} — ${c.name}</option>`).join('')}
+            <option value="RESEARCH" ${d.courseCode === 'RESEARCH' ? 'selected' : ''}>RESEARCH — Campus Projects</option>
+            <option value="CAREER" ${d.courseCode === 'CAREER' ? 'selected' : ''}>CAREER — Placements</option>
+            <option value="GENERAL" ${d.courseCode === 'GENERAL' ? 'selected' : ''}>GENERAL — Academic Affairs</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Category</label>
+          <select class="form-control" name="category" required>
+            <option value="Assignment" ${d.category === 'Assignment' ? 'selected' : ''}>Assignment</option>
+            <option value="Project" ${d.category === 'Project' ? 'selected' : ''}>Project</option>
+            <option value="Lab" ${d.category === 'Lab' ? 'selected' : ''}>Lab Submission</option>
+            <option value="Research" ${d.category === 'Research' ? 'selected' : ''}>Research Paper</option>
+            <option value="Placement" ${d.category === 'Placement' ? 'selected' : ''}>Placement Registration</option>
+            <option value="Exam" ${d.category === 'Exam' ? 'selected' : ''}>Exam / Mid-Term</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Due Date & Time *</label>
+          <input type="datetime-local" class="form-control" name="dueDate" value="${dueDateFormatted}" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Priority Level *</label>
+          <select class="form-control" name="priority" required>
+            <option value="High" ${d.priority === 'High' ? 'selected' : ''}>High Priority (Urgent)</option>
+            <option value="Medium" ${d.priority === 'Medium' ? 'selected' : ''}>Medium Priority</option>
+            <option value="Low" ${d.priority === 'Low' ? 'selected' : ''}>Low Priority</option>
+          </select>
+        </div>
+
+        <div class="form-group col-span-2">
+          <label class="form-label">Instructions / Description</label>
+          <textarea class="form-control" name="description" rows="3">${d.description || ''}</textarea>
+        </div>
+      </form>
+    `;
+
+    const footerHtml = `
+      <button class="btn-quick" id="btn-cancel-modal">Cancel</button>
+      <button class="btn-quick btn-primary" id="btn-update-deadline">Save Changes</button>
+    `;
+
+    this.openModal('Edit Academic Deadline', bodyHtml, footerHtml);
+
+    document.getElementById('btn-cancel-modal').addEventListener('click', () => this.closeModal());
+    document.getElementById('btn-update-deadline').addEventListener('click', async () => {
+      const form = document.getElementById('edit-deadline-form');
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const fd = new FormData(form);
+      const courseCode = fd.get('courseCode');
+      const course = courses.find(c => c.code === courseCode);
+
+      const payload = {
+        title: fd.get('title'),
+        courseCode: courseCode,
+        courseName: course ? course.name : 'Campus Academic Affairs',
+        category: fd.get('category'),
+        dueDate: fd.get('dueDate'),
+        priority: fd.get('priority'),
+        description: fd.get('description')
+      };
+
+      await this.deadlineClient.updateDeadline(d.id, payload);
+      this.closeModal();
+      this.showToast('Deadline updated successfully', 'success');
+      this.render();
+    });
   }
 }
 

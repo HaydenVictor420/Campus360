@@ -7,6 +7,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const { exec } = require('child_process');
+const { handleDeadlinesApi } = require('./deadlines-router');
 
 const DEFAULT_PORT = parseInt(process.env.PORT, 10) || 3000;
 const PUBLIC_DIR = __dirname;
@@ -23,7 +24,22 @@ const MIME_TYPES = {
 };
 
 function createServerInstance() {
-  return http.createServer((req, res) => {
+  return http.createServer(async (req, res) => {
+    // 1. API Route Interceptor
+    try {
+      if (req.url.startsWith('/api/')) {
+        await handleDeadlinesApi(req, res);
+        if (res.writableEnded || res.headersSent) return;
+      }
+    } catch (apiErr) {
+      console.error('API Error:', apiErr);
+      if (!res.headersSent) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: apiErr.message }));
+      }
+      return;
+    }
+
     let reqUrl = req.url.split('?')[0];
     if (reqUrl === '/') reqUrl = '/index.html';
 

@@ -10,6 +10,8 @@ const filesToInclude = [
   { name: 'README.md', lang: 'markdown', desc: 'Project Overview, IEEE Research Mapping & System Architecture' },
   { name: 'package.json', lang: 'json', desc: 'Project Metadata, Dependencies & NPM Scripts' },
   { name: 'server.js', lang: 'javascript', desc: 'Zero-Dependency HTTP Server & Port Failover' },
+  { name: 'deadlines-router.js', lang: 'javascript', desc: 'Backend REST API Router & JSON Storage for Deadline Reminder Hub' },
+  { name: 'deadlines-client.js', lang: 'javascript', desc: 'Frontend Deadline Client & Desktop Notification Service' },
   { name: 'index.html', lang: 'html', desc: 'Web Display Layer (Tier 1) - Multi-Role Dashboard HTML' },
   { name: 'styles.css', lang: 'css', desc: 'Styling & Visual Design System (CSS3 Variables & Responsive Layout)' },
   { name: 'data.js', lang: 'javascript', desc: 'Data Layer (Tier 4) - Seed Data & Entity Schemas' },
